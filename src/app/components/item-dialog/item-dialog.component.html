@@ -1,0 +1,171 @@
+<div class="item-dialog">
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{ data.title }}</h2>
+    <button 
+      mat-icon-button 
+      mat-dialog-close
+      id="btn-close-dialog"
+      aria-label="Fechar diálogo">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div mat-dialog-content class="dialog-content">
+    <!-- Imagem Principal -->
+    <div class="image-container">
+      <img 
+        [src]="data.imageUrl" 
+        [alt]="data.title"
+        [id]="'img-dialog-item-' + data.id"
+        class="item-image"
+        (error)="onImageError($event)">
+    </div>
+
+    <!-- Informações do Item -->
+    <div class="item-info">
+      <mat-card class="info-card">
+        <mat-card-header>
+          <mat-card-title>Informações Gerais</mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <div class="info-row">
+            <span class="info-label">
+              <mat-icon>label</mat-icon>
+              ID:
+            </span>
+            <span class="info-value">{{ data.id }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">
+              <mat-icon>title</mat-icon>
+              Título:
+            </span>
+            <span class="info-value">{{ data.title }}</span>
+          </div>
+
+          <div class="info-row description-row">
+            <span class="info-label">
+              <mat-icon>description</mat-icon>
+              Descrição:
+            </span>
+            <span class="info-value">{{ data.description }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">
+              <mat-icon>image</mat-icon>
+              URL da Imagem:
+            </span>
+            <span class="info-value image-url">
+              <a [href]="data.imageUrl" target="_blank" rel="noopener" [id]="'link-image-url-' + data.id">
+                {{ data.imageUrl }}
+                <mat-icon>open_in_new</mat-icon>
+              </a>
+            </span>
+          </div>
+
+          @if (data.createdAt) {
+            <div class="info-row">
+              <span class="info-label">
+                <mat-icon>event</mat-icon>
+                Criado em:
+              </span>
+              <span class="info-value">
+                {{ formatDate(data.createdAt) }}
+              </span>
+            </div>
+          }
+
+          @if (data.updatedAt && data.updatedAt !== data.createdAt) {
+            <div class="info-row">
+              <span class="info-label">
+                <mat-icon>update</mat-icon>
+                Atualizado em:
+              </span>
+              <span class="info-value">
+                {{ formatDate(data.updatedAt) }}
+              </span>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Estatísticas -->
+      <mat-card class="stats-card">
+        <mat-card-header>
+          <mat-card-title>Estatísticas</mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <div class="stats-container">
+            <div class="stat-item">
+              <mat-icon>text_fields</mat-icon>
+              <span class="stat-value">{{ data.title.length }}</span>
+              <span class="stat-label">Chars no Título</span>
+            </div>
+            
+            <div class="stat-item">
+              <mat-icon>article</mat-icon>
+              <span class="stat-value">{{ data.description.length }}</span>
+              <span class="stat-label">Chars na Descrição</span>
+            </div>
+            
+            <div class="stat-item">
+              <mat-icon>word_count</mat-icon>
+              <span class="stat-value">{{ getWordCount(data.description) }}</span>
+              <span class="stat-label">Palavras</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Tags/Categorias (simuladas) -->
+      <mat-card class="tags-card">
+        <mat-card-header>
+          <mat-card-title>Tags</mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <div class="tags-container">
+            @for (tag of generateTags(); track tag) {
+              <mat-chip-set>
+                <mat-chip>{{ tag }}</mat-chip>
+              </mat-chip-set>
+            }
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="dialog-actions">
+    <button 
+      mat-button 
+      mat-dialog-close
+      color="primary"
+      id="btn-close-dialog-footer">
+      <mat-icon>close</mat-icon>
+      Fechar
+    </button>
+    
+    <button 
+      mat-raised-button 
+      color="accent"
+      [id]="'btn-view-image-' + data.id"
+      (click)="openImageInNewTab()">
+      <mat-icon>open_in_new</mat-icon>
+      Ver Imagem
+    </button>
+    
+    <button 
+      mat-raised-button 
+      color="primary"
+      [id]="'btn-edit-dialog-' + data.id"
+      (click)="editItem()">
+      <mat-icon>edit</mat-icon>
+      Editar
+    </button>
+  </div>
+</div>

@@ -1,0 +1,172 @@
+    <mat-card class="item-form-card">
+      <mat-card-header>
+        <mat-card-title>
+          {{ isEditMode() ? 'Editar Item' : 'Novo Item' }}
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+          <!-- Campo Título -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Título</mat-label>
+            <input 
+              matInput 
+              formControlName="title"
+              id="input-title"
+              placeholder="Digite o título do item"
+              maxlength="100">
+            <mat-hint>{{ titleControl.value?.length || 0 }}/100</mat-hint>
+            @if (titleControl.invalid && (titleControl.dirty || titleControl.touched)) {
+              <mat-error>
+                @if (titleControl.errors?.['required']) {
+                  Título é obrigatório
+                }
+                @if (titleControl.errors?.['minlength']) {
+                  Título deve ter pelo menos 3 caracteres
+                }
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Campo Descrição -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descrição</mat-label>
+            <textarea 
+              matInput 
+              formControlName="description"
+              id="textarea-description"
+              placeholder="Digite a descrição do item"
+              rows="4"
+              maxlength="500">
+            </textarea>
+            <mat-hint>{{ descriptionControl.value?.length || 0 }}/500</mat-hint>
+            @if (descriptionControl.invalid && (descriptionControl.dirty || descriptionControl.touched)) {
+              <mat-error>
+                @if (descriptionControl.errors?.['required']) {
+                  Descrição é obrigatória
+                }
+                @if (descriptionControl.errors?.['minlength']) {
+                  Descrição deve ter pelo menos 10 caracteres
+                }
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Campo URL da Imagem -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>URL da Imagem</mat-label>
+            <input 
+              matInput 
+              formControlName="imageUrl"
+              id="input-image-url"
+              placeholder="Digite a URL da imagem ou faça upload"
+              type="url">
+            @if (imageUrlControl.invalid && (imageUrlControl.dirty || imageUrlControl.touched)) {
+              <mat-error>
+                @if (imageUrlControl.errors?.['required']) {
+                  URL da imagem é obrigatória
+                }
+                @if (imageUrlControl.errors?.['pattern']) {
+                  URL deve ser válida
+                }
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Upload de Imagem -->
+          <div class="image-upload-section">
+            <h3>Upload de Imagem</h3>
+            <input 
+              type="file" 
+              accept="image/*"
+              id="input-file-upload"
+              (change)="onImageSelected($event)"
+              #fileInput
+              style="display: none;">
+            
+            <div class="upload-actions">
+              <button 
+                type="button"
+                mat-raised-button 
+                color="accent"
+                id="btn-select-image"
+                (click)="fileInput.click()">
+                <mat-icon>cloud_upload</mat-icon>
+                Selecionar Imagem
+              </button>
+              
+              @if (imageChangedEvent) {
+                <button 
+                  type="button"
+                  mat-button 
+                  color="warn"
+                  id="btn-clear-image"
+                  (click)="clearImage()">
+                  <mat-icon>clear</mat-icon>
+                  Limpar
+                </button>
+              }
+            </div>
+            
+            <!-- Recorte de Imagem -->
+            @if (imageChangedEvent) {
+              <div class="image-cropper-container">
+                <image-cropper
+                  [imageChangedEvent]="imageChangedEvent"
+                  [maintainAspectRatio]="true"
+                  [aspectRatio]="4/3"
+                  [resizeToWidth]="400"
+                  [cropperMinWidth]="100"
+                  [cropperMinHeight]="100"
+                  [roundCropper]="false"
+                  [canvasRotation]="0"
+                  [allowMoveImage]="true"
+
+                  (imageCropped)="onImageCropped($event)">
+                </image-cropper>
+              </div>
+            }
+          </div>
+
+          <!-- Preview da Imagem -->
+          @if (imagePreviewUrl()) {
+            <div class="image-preview">
+              <h3>Preview da Imagem</h3>
+              <img 
+                [src]="imagePreviewUrl()" 
+                alt="Preview"
+                class="preview-image"
+                (error)="onImageError($event)">
+            </div>
+          }
+        </form>
+      </mat-card-content>
+
+      <mat-card-actions class="form-actions">
+        <button 
+          type="button"
+          mat-button 
+          id="btn-cancel-form"
+          (click)="onCancel()"
+          [disabled]="isLoading">
+          <mat-icon>close</mat-icon>
+          Cancelar
+        </button>
+        
+        <button 
+          type="submit"
+          mat-raised-button 
+          color="primary"
+          id="btn-save-form"
+          (click)="onSubmit()"
+          [disabled]="itemForm.invalid || isLoading">
+          @if (isLoading) {
+            <mat-spinner diameter="16"></mat-spinner>
+          } @else {
+            <mat-icon>save</mat-icon>
+          }
+          {{ isEditMode() ? 'Atualizar' : 'Criar' }}
+        </button>
+      </mat-card-actions>
+    </mat-card>

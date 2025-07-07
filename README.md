@@ -322,6 +322,14 @@ npm run build
 - ✅ **Facilita Testes**: Melhora a identificação de elementos em testes automatizados e E2E
 - ✅ **Acessibilidade**: Melhora a navegação por elementos para tecnologias assistivas
 
+### v1.1.6 - Separação de Templates e Estilos
+- ✅ **Arquivos HTML Externos**: Todos os templates inline movidos para arquivos `.html` separados
+- ✅ **Arquivos SCSS Externos**: Todos os estilos inline movidos para arquivos `.scss` separados
+- ✅ **Melhor Organização**: Separação clara entre lógica (TS), estrutura (HTML) e estilo (SCSS)
+- ✅ **Facilita Manutenção**: Edição e debugging mais simples com arquivos especializados
+- ✅ **Suporte a IDEs**: Melhor syntax highlighting e autocomplete em editores
+- ✅ **Padrão Angular**: Segue as melhores práticas recomendadas pelo Angular Style Guide
+
 ## 📋 Próximos Passos
 
 - [ ] Autenticação e autorização

@@ -1,0 +1,145 @@
+    <div class="item-list-container">
+      <!-- Toolbar -->
+      <mat-toolbar color="primary" class="main-toolbar">
+        <span class="toolbar-title">
+          <mat-icon>inventory</mat-icon>
+          Gerenciador de Itens
+        </span>
+        
+        <span class="toolbar-spacer"></span>
+        
+        <button 
+          mat-raised-button 
+          color="accent"
+          id="btn-create-item"
+          (click)="openCreateDialog()"
+          [disabled]="isLoading()">
+          <mat-icon>add</mat-icon>
+          Novo Item
+        </button>
+      </mat-toolbar>
+
+      <!-- Filtros -->
+      <div class="filters-section">
+        <mat-card class="filters-card">
+          <mat-card-content>
+            <form [formGroup]="filtersForm" class="filters-form">
+              <mat-form-field appearance="outline" class="search-field">
+                <mat-label>Buscar</mat-label>
+                <input 
+                  matInput 
+                  formControlName="search"
+                  id="input-search"
+                  placeholder="Digite 3+ caracteres para buscar...">
+                <mat-icon matPrefix>search</mat-icon>
+                @if (searchValue().length > 0 && searchValue().length < 3) {
+                  <mat-hint class="search-hint">Digite mais {{ 3 - searchValue().length }} caractere(s)</mat-hint>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="sort-field">
+                <mat-label>Ordenar por</mat-label>
+                <mat-select formControlName="sortBy" id="select-sort-by">
+                  <mat-option value="title">Título</mat-option>
+                  <mat-option value="createdAt">Data de Criação</mat-option>
+                  <mat-option value="updatedAt">Última Atualização</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="direction-field">
+                <mat-label>Direção</mat-label>
+                <mat-select formControlName="sortDirection" id="select-sort-direction">
+                  <mat-option value="asc">Crescente</mat-option>
+                  <mat-option value="desc">Decrescente</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <button 
+                type="button"
+                mat-button 
+                color="warn"
+                id="btn-clear-filters"
+                (click)="clearFilters()"
+                [disabled]="isLoading()">
+                <mat-icon>clear</mat-icon>
+                Limpar
+              </button>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Loading State -->
+      @if (isLoading()) {
+        <div class="loading-container">
+          <app-spinner 
+            [size]="60" 
+            [message]="'Carregando itens...'">
+          </app-spinner>
+        </div>
+      }
+
+      <!-- Empty State -->
+      @if (!isLoading() && items().length === 0) {
+        <div class="empty-state">
+          <mat-icon class="empty-icon">inventory_2</mat-icon>
+          <h2>Nenhum item encontrado</h2>
+          <p>
+            @if (hasActiveFilters()) {
+              Tente ajustar os filtros de busca ou 
+              <button mat-button color="primary" id="btn-clear-filters-empty" (click)="clearFilters()">
+                limpar filtros
+              </button>
+            } @else {
+              Comece criando seu primeiro item
+            }
+          </p>
+          <button 
+            mat-raised-button 
+            color="primary"
+            id="btn-create-first-item"
+            (click)="openCreateDialog()">
+            <mat-icon>add</mat-icon>
+            Criar Primeiro Item
+          </button>
+        </div>
+      }
+
+      <!-- Items Grid -->
+      @if (!isLoading() && items().length > 0) {
+        <div class="items-grid">
+          @for (item of items(); track item.id) {
+            <app-item-card
+              [item]="item"
+              [showActions]="true"
+              [isLoading]="loadingItemId() === item.id"
+              (view)="viewItem($event)"
+              (edit)="editItem($event)"
+              (delete)="deleteItem($event)">
+            </app-item-card>
+          }
+        </div>
+
+        <!-- Pagination -->
+        <mat-paginator
+          [length]="totalItems()"
+          [pageSize]="pagination().pageSize"
+          [pageIndex]="pagination().page"
+          [pageSizeOptions]="[5, 10, 25, 50]"
+          [showFirstLastButtons]="true"
+          (page)="onPageChange($event)"
+          id="paginator-items"
+          class="pagination">
+        </mat-paginator>
+      }
+
+      <!-- Form Dialog -->
+      @if (showFormDialog()) {
+        <app-item-form
+          [item]="selectedItem()"
+          [isLoading]="isLoading()"
+          (save)="saveItem($event)"
+          (cancel)="closeFormDialog()">
+        </app-item-form>
+      }
+    </div>

@@ -50,82 +50,8 @@ export interface ConfirmDialogData {
   selector: 'app-confirm-dialog',
   standalone: true,
   imports: [MatDialogModule, MatButtonModule, MatIconModule],
-  template: `
-    <div class="confirm-dialog">
-      <div class="dialog-header">
-        @if (data.icon) {
-          <mat-icon [class]="'icon-' + (data.type || 'primary')">{{ data.icon }}</mat-icon>
-        }
-        <h2 mat-dialog-title>{{ data.title }}</h2>
-      </div>
-      
-      <div mat-dialog-content>
-        <p>{{ data.message }}</p>
-      </div>
-      
-      <div mat-dialog-actions class="dialog-actions">
-        <button 
-          mat-button 
-          (click)="onCancel()"
-          id="btn-confirm-cancel"
-          type="button">
-          {{ data.cancelText || 'Cancelar' }}
-        </button>
-        <button 
-          mat-raised-button 
-          [color]="data.type || 'primary'"
-          (click)="onConfirm()"
-          id="btn-confirm-action"
-          type="button">
-          {{ data.confirmText || 'Confirmar' }}
-        </button>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .confirm-dialog {
-      min-width: 300px;
-      max-width: 500px;
-    }
-    
-    .dialog-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    
-    .dialog-header h2 {
-      margin: 0;
-      font-size: 1.25rem;
-      font-weight: 500;
-    }
-    
-    .dialog-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-      margin-top: 24px;
-    }
-    
-    .icon-primary {
-      color: #673ab7;
-    }
-    
-    .icon-accent {
-      color: #e91e63;
-    }
-    
-    .icon-warn {
-      color: #f44336;
-    }
-    
-    mat-icon {
-      font-size: 24px;
-      width: 24px;
-      height: 24px;
-    }
-  `]
+  templateUrl: './confirm-dialog.component.html',
+  styleUrls: ['./confirm-dialog.component.scss']
 })
 export class ConfirmDialogComponent {
   /**

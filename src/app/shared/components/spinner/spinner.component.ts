@@ -19,30 +19,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   selector: 'app-spinner',
   standalone: true,
   imports: [MatProgressSpinnerModule],
-  template: `
-    <div class="spinner-container">
-      <mat-spinner [diameter]="size" [color]="color"></mat-spinner>
-      @if (message) {
-        <p class="spinner-message">{{ message }}</p>
-      }
-    </div>
-  `,
-  styles: [`
-    .spinner-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    
-    .spinner-message {
-      margin-top: 16px;
-      font-size: 14px;
-      color: #666;
-      text-align: center;
-    }
-  `]
+  templateUrl: './spinner.component.html',
+  styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent {
   /**

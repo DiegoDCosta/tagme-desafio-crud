@@ -1,0 +1,77 @@
+    <mat-card class="item-card" [class.loading]="isLoading">
+      <div class="card-header">
+        <mat-card-header>
+          <mat-card-title>{{ item.title }}</mat-card-title>
+          <mat-card-subtitle>
+            @if (item.createdAt) {
+              Criado em {{ formatDate(item.createdAt) }}
+            }
+          </mat-card-subtitle>
+        </mat-card-header>
+        
+        @if (showActions) {
+          <button 
+            mat-icon-button 
+            [matMenuTriggerFor]="menu"
+            [id]="'btn-menu-item-' + item.id"
+            aria-label="Ações do item">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [id]="'btn-view-item-' + item.id" (click)="onView()">
+              <mat-icon>visibility</mat-icon>
+              <span>Visualizar</span>
+            </button>
+            <button mat-menu-item [id]="'btn-edit-item-' + item.id" (click)="onEdit()">
+              <mat-icon>edit</mat-icon>
+              <span>Editar</span>
+            </button>
+            <button mat-menu-item [id]="'btn-delete-item-' + item.id" (click)="onDelete()" class="delete-action">
+              <mat-icon>delete</mat-icon>
+              <span>Excluir</span>
+            </button>
+          </mat-menu>
+        }
+      </div>
+
+      <div class="card-image" [id]="'img-container-item-' + item.id" (click)="onView()">
+        <img 
+          [src]="item.imageUrl" 
+          [alt]="item.title"
+          [id]="'img-item-' + item.id"
+          (error)="onImageError($event)"
+          loading="lazy">
+      </div>
+
+      <mat-card-content>
+        <p class="item-description">{{ item.description }}</p>
+        
+        @if (item.updatedAt && item.updatedAt !== item.createdAt) {
+          <p class="last-updated">
+            Atualizado em {{ formatDate(item.updatedAt) }}
+          </p>
+        }
+      </mat-card-content>
+
+      @if (showActions) {
+        <mat-card-actions class="card-actions">
+          <button 
+            mat-button 
+            color="primary" 
+            [id]="'btn-view-details-item-' + item.id"
+            (click)="onView()">
+            <mat-icon>visibility</mat-icon>
+            Ver Detalhes
+          </button>
+          <button 
+            mat-button 
+            color="accent" 
+            [id]="'btn-edit-inline-item-' + item.id"
+            (click)="onEdit()">
+            <mat-icon>edit</mat-icon>
+            Editar
+          </button>
+        </mat-card-actions>
+      }
+    </mat-card>
