@@ -6,7 +6,7 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
 import { 
   Item, 
   CreateItemDto, 
@@ -140,12 +140,26 @@ export class ItemService {
   ): Observable<PaginatedResponse<Item>> {
     this.loadingState.set(LoadingState.LOADING);
     
-    let params = new HttpParams();
-    
-    // Adiciona filtros de busca
-    // Como o JSON Server pode não suportar busca em texto completo,
-    // vamos buscar todos e filtrar no cliente se houver termo de busca
     const hasSearch = filters.search && filters.search.trim().length > 0;
+    
+    if (hasSearch) {
+      // Para busca, obtém todos os itens e filtra localmente
+      return this.getAllItemsForSearch(filters, pagination);
+    } else {
+      // Para navegação normal, usa paginação do servidor
+      return this.getItemsWithServerPagination(filters, pagination);
+    }
+  }
+
+  /**
+   * Obtém itens com paginação do servidor (sem busca)
+   * @private
+   */
+  private getItemsWithServerPagination(
+    filters: ItemFilter, 
+    pagination: PaginationOptions
+  ): Observable<PaginatedResponse<Item>> {
+    let params = new HttpParams();
     
     // Adiciona ordenação
     if (filters.sortBy) {
@@ -153,50 +167,70 @@ export class ItemService {
       params = params.set('_order', filters.sortDirection || 'asc');
     }
     
-    // Se não há busca, usa paginação normal do servidor
-    if (!hasSearch) {
-      const start = pagination.page * pagination.pageSize;
-      params = params.set('_start', start.toString());
-      params = params.set('_limit', pagination.pageSize.toString());
-    }
-    
-    return this.http.get<Item[]>(this.ITEMS_ENDPOINT, { 
-      params, 
-      observe: 'response' 
-    }).pipe(
-      map(response => {
-        let items = response.body || [];
+    // Primeiro, obtém o total de itens
+    return this.http.get<Item[]>(this.ITEMS_ENDPOINT).pipe(
+      switchMap((allItems: Item[]) => {
+        const totalItems = allItems.length;
         
-        // Se há busca, filtra os resultados localmente
-        if (hasSearch) {
-          const searchTerm = filters.search!.toLowerCase().trim();
-          items = items.filter(item => 
-            item.title.toLowerCase().includes(searchTerm) ||
-            item.description.toLowerCase().includes(searchTerm)
-          );
-        }
+        // Agora faz a requisição paginada
+        const start = pagination.page * pagination.pageSize;
+        params = params.set('_start', start.toString());
+        params = params.set('_limit', pagination.pageSize.toString());
         
-        // Calcula total e aplica paginação local se necessário
-        const total = items.length;
-        
-        // Se há busca, aplica paginação local
-        if (hasSearch) {
-          const start = pagination.page * pagination.pageSize;
-          const end = start + pagination.pageSize;
-          items = items.slice(start, end);
-        } else {
-          // Usa o total do servidor se não há busca
-          const serverTotal = parseInt(response.headers.get('X-Total-Count') || '0');
-          return {
+        return this.http.get<Item[]>(this.ITEMS_ENDPOINT, { params }).pipe(
+          map((items: Item[]) => ({
             data: items,
             pagination: {
               ...pagination,
-              totalItems: serverTotal,
-              totalPages: Math.ceil(serverTotal / pagination.pageSize)
+              totalItems: totalItems,
+              totalPages: Math.ceil(totalItems / pagination.pageSize)
             },
-            total: serverTotal
-          };
-        }
+            total: totalItems
+          }))
+        );
+      }),
+      tap((response: PaginatedResponse<Item>) => {
+        this.itemsSubject.next(response.data);
+        this.loadingState.set(LoadingState.SUCCESS);
+      }),
+      catchError(error => {
+        this.loadingState.set(LoadingState.ERROR);
+        console.error('Erro ao buscar itens paginados:', error);
+        return throwError(() => new Error('Falha ao buscar itens'));
+      })
+    );
+  }
+
+  /**
+   * Obtém todos os itens para busca local
+   * @private
+   */
+  private getAllItemsForSearch(
+    filters: ItemFilter, 
+    pagination: PaginationOptions
+  ): Observable<PaginatedResponse<Item>> {
+    let params = new HttpParams();
+    
+    // Adiciona ordenação
+    if (filters.sortBy) {
+      params = params.set('_sort', filters.sortBy);
+      params = params.set('_order', filters.sortDirection || 'asc');
+    }
+    
+    return this.http.get<Item[]>(this.ITEMS_ENDPOINT, { params }).pipe(
+      map(allItems => {
+        // Filtra localmente
+        const searchTerm = filters.search!.toLowerCase().trim();
+        const filteredItems = allItems.filter(item => 
+          item.title.toLowerCase().includes(searchTerm) ||
+          item.description.toLowerCase().includes(searchTerm)
+        );
+        
+        // Aplica paginação local
+        const total = filteredItems.length;
+        const start = pagination.page * pagination.pageSize;
+        const end = start + pagination.pageSize;
+        const items = filteredItems.slice(start, end);
         
         return {
           data: items,

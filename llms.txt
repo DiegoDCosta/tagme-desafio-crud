@@ -81,6 +81,9 @@ npm start
 # Iniciar JSON Server
 npm run json-server
 
+# Comando de desenvolvimento completo (Angular + JSON Server)
+npm run start:dev
+
 # Gerar documentação Compodoc
 npm run doc:build
 npm run doc:serve

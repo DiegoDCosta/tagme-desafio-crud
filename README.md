@@ -67,6 +67,13 @@ npm install @angular/animations ngx-image-cropper
 
 ### Modo Desenvolvimento
 
+#### Opção 1: Comando Único (Recomendado)
+```bash
+npm run start:dev
+```
+Este comando inicia automaticamente tanto o Angular quanto o JSON Server simultaneamente.
+
+#### Opção 2: Comandos Separados
 1. **Inicie o JSON Server** (em um terminal):
 ```bash
 npm run json-server
@@ -87,6 +94,7 @@ npm start
 # Desenvolvimento
 npm start                    # Inicia aplicação Angular
 npm run json-server         # Inicia JSON Server na porta 3000
+npm run start:dev           # Inicia Angular + JSON Server simultaneamente
 
 # Build e Produção
 npm run build               # Build para produção
@@ -300,6 +308,12 @@ npm run build
 - ✅ **Hint Visual**: Indicador de quantos caracteres faltam para buscar
 - ✅ **Performance**: Debounce de 500ms para evitar requests excessivos
 - ✅ **UX Melhorada**: Placeholder explicativo e feedback em tempo real
+
+### v1.1.4 - Comando de Desenvolvimento Unificado
+- ✅ **Script start:dev**: Novo comando `npm run start:dev` que executa Angular + JSON Server simultaneamente
+- ✅ **Documentação Atualizada**: README.md e llms.txt com informações do novo comando
+- ✅ **Experiência Melhorada**: Inicia o ambiente completo com um único comando
+- ✅ **Concorrência**: Utiliza `concurrently` para execução simultânea dos serviços
 
 ## 📋 Próximos Passos
 

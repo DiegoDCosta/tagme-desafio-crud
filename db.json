@@ -23,6 +23,182 @@
       "imageUrl": "https://placehold.co/300x200/9B59B6/FFFFFF?text=Fones",
       "createdAt": "2024-01-17T09:15:00.000Z",
       "updatedAt": "2024-01-17T09:15:00.000Z"
+    },
+    {
+      "id": 4,
+      "title": "Smart TV 55 4K",
+      "description": "Smart TV LED 55 polegadas com resolução 4K Ultra HD, HDR10 e sistema operacional Android TV integrado. Experiência cinematográfica em casa.",
+      "imageUrl": "https://placehold.co/300x200/FF6B35/FFFFFF?text=Smart+TV",
+      "createdAt": "2024-01-18T11:45:00.000Z",
+      "updatedAt": "2024-01-18T11:45:00.000Z"
+    },
+    {
+      "id": 5,
+      "title": "Tablet Pro",
+      "description": "Tablet profissional com tela de 12.9 polegadas, processador M1 e suporte a Apple Pencil. Ideal para design e produtividade.",
+      "imageUrl": "https://placehold.co/300x200/F7931E/FFFFFF?text=Tablet",
+      "createdAt": "2024-01-19T16:20:00.000Z",
+      "updatedAt": "2024-01-19T16:20:00.000Z"
+    },
+    {
+      "id": 6,
+      "title": "Console PlayStation 5",
+      "description": "Console de games de nova geração com SSD ultra-rápido, controle DualSense com feedback háptico e suporte a jogos em 4K.",
+      "imageUrl": "https://placehold.co/300x200/00A8E6/FFFFFF?text=PS5",
+      "createdAt": "2024-01-20T13:10:00.000Z",
+      "updatedAt": "2024-01-20T13:10:00.000Z"
+    },
+    {
+      "id": 7,
+      "title": "Smartwatch Fitness",
+      "description": "Relógio inteligente com monitor cardíaco, GPS integrado, resistência à água e mais de 100 modalidades esportivas.",
+      "imageUrl": "https://placehold.co/300x200/FF1744/FFFFFF?text=Watch",
+      "createdAt": "2024-01-21T08:30:00.000Z",
+      "updatedAt": "2024-01-21T08:30:00.000Z"
+    },
+    {
+      "id": 8,
+      "title": "Câmera DSLR Profissional",
+      "description": "Câmera DSLR com sensor APS-C de 24MP, gravação 4K, lente kit 18-55mm e sistema de foco automático avançado.",
+      "imageUrl": "https://placehold.co/300x200/795548/FFFFFF?text=Camera",
+      "createdAt": "2024-01-22T14:55:00.000Z",
+      "updatedAt": "2024-01-22T14:55:00.000Z"
+    },
+    {
+      "id": 9,
+      "title": "SSD Externo 1TB",
+      "description": "SSD portátil de alta velocidade com 1TB de capacidade, conexão USB-C 3.2 e velocidades de transferência até 1.000 MB/s.",
+      "imageUrl": "https://placehold.co/300x200/37474F/FFFFFF?text=SSD",
+      "createdAt": "2024-01-23T10:15:00.000Z",
+      "updatedAt": "2024-01-23T10:15:00.000Z"
+    },
+    {
+      "id": 10,
+      "title": "Teclado Mecânico RGB",
+      "description": "Teclado mecânico gamer com switches Cherry MX Blue, retroiluminação RGB personalizável e teclas anti-ghosting.",
+      "imageUrl": "https://placehold.co/300x200/E91E63/FFFFFF?text=Keyboard",
+      "createdAt": "2024-01-24T15:40:00.000Z",
+      "updatedAt": "2024-01-24T15:40:00.000Z"
+    },
+    {
+      "id": 11,
+      "title": "Mouse Gamer Wireless",
+      "description": "Mouse sem fio para jogos com sensor óptico de 16.000 DPI, 7 botões programáveis e bateria de até 70 horas.",
+      "imageUrl": "https://placehold.co/300x200/3F51B5/FFFFFF?text=Mouse",
+      "createdAt": "2024-01-25T12:25:00.000Z",
+      "updatedAt": "2024-01-25T12:25:00.000Z"
+    },
+    {
+      "id": 12,
+      "title": "Monitor 4K 27 polegadas",
+      "description": "Monitor IPS 4K com 27 polegadas, suporte a HDR400, 99% sRGB e conectividade USB-C para profissionais criativos.",
+      "imageUrl": "https://placehold.co/300x200/009688/FFFFFF?text=Monitor",
+      "createdAt": "2024-01-26T09:50:00.000Z",
+      "updatedAt": "2024-01-26T09:50:00.000Z"
+    },
+    {
+      "id": 13,
+      "title": "Impressora Multifuncional",
+      "description": "Impressora jato de tinta colorida com scanner, copiadora, Wi-Fi integrado e impressão duplex automática.",
+      "imageUrl": "https://placehold.co/300x200/607D8B/FFFFFF?text=Printer",
+      "createdAt": "2024-01-27T17:35:00.000Z",
+      "updatedAt": "2024-01-27T17:35:00.000Z"
+    },
+    {
+      "id": 14,
+      "title": "Roteador Wi-Fi 6",
+      "description": "Roteador wireless Wi-Fi 6 com velocidades até 3.000 Mbps, 4 antenas externas e cobertura para casas grandes.",
+      "imageUrl": "https://placehold.co/300x200/FF5722/FFFFFF?text=Router",
+      "createdAt": "2024-01-28T11:20:00.000Z",
+      "updatedAt": "2024-01-28T11:20:00.000Z"
+    },
+    {
+      "id": 15,
+      "title": "Caixa de Som Bluetooth",
+      "description": "Caixa de som portátil com Bluetooth 5.0, resistência IPX7, 20 horas de bateria e graves potentes.",
+      "imageUrl": "https://placehold.co/300x200/8BC34A/FFFFFF?text=Speaker",
+      "createdAt": "2024-01-29T14:05:00.000Z",
+      "updatedAt": "2024-01-29T14:05:00.000Z"
+    },
+    {
+      "id": 16,
+      "title": "Webcam Full HD",
+      "description": "Webcam com resolução Full HD 1080p, microfone integrado com cancelamento de ruído e correção automática de luz.",
+      "imageUrl": "https://placehold.co/300x200/CDDC39/000000?text=Webcam",
+      "createdAt": "2024-01-30T16:45:00.000Z",
+      "updatedAt": "2024-01-30T16:45:00.000Z"
+    },
+    {
+      "id": 17,
+      "title": "Carregador Sem Fio",
+      "description": "Base de carregamento wireless com suporte a carregamento rápido 15W, compatível com iPhone e Android.",
+      "imageUrl": "https://placehold.co/300x200/FFC107/000000?text=Charger",
+      "createdAt": "2024-01-31T13:15:00.000Z",
+      "updatedAt": "2024-01-31T13:15:00.000Z"
+    },
+    {
+      "id": 18,
+      "title": "Power Bank 20.000mAh",
+      "description": "Bateria externa de alta capacidade com carregamento rápido, 3 portas USB e display LED de capacidade restante.",
+      "imageUrl": "https://placehold.co/300x200/FF9800/FFFFFF?text=PowerBank",
+      "createdAt": "2024-02-01T10:30:00.000Z",
+      "updatedAt": "2024-02-01T10:30:00.000Z"
+    },
+    {
+      "id": 19,
+      "title": "Drone com Câmera 4K",
+      "description": "Drone profissional com câmera 4K estabilizada, 30 minutos de voo, GPS e controle remoto com tela integrada.",
+      "imageUrl": "https://placehold.co/300x200/2196F3/FFFFFF?text=Drone",
+      "createdAt": "2024-02-02T15:50:00.000Z",
+      "updatedAt": "2024-02-02T15:50:00.000Z"
+    },
+    {
+      "id": 20,
+      "title": "Microfone Condensador",
+      "description": "Microfone profissional USB para podcasts e streaming, com braço articulado, filtro pop e controle de ganho.",
+      "imageUrl": "https://placehold.co/300x200/9C27B0/FFFFFF?text=Microphone",
+      "createdAt": "2024-02-03T12:40:00.000Z",
+      "updatedAt": "2024-02-03T12:40:00.000Z"
+    },
+    {
+      "id": 21,
+      "title": "VR Headset",
+      "description": "Óculos de realidade virtual com resolução 2K por olho, rastreamento de movimento 6DOF e biblioteca com centenas de jogos.",
+      "imageUrl": "https://placehold.co/300x200/673AB7/FFFFFF?text=VR",
+      "createdAt": "2024-02-04T09:25:00.000Z",
+      "updatedAt": "2024-02-04T09:25:00.000Z"
+    },
+    {
+      "id": 22,
+      "title": "Cooler para Notebook",
+      "description": "Base refrigeradora para notebook com 5 ventoinhas silenciosas, controle de velocidade e portas USB extras.",
+      "imageUrl": "https://placehold.co/300x200/795548/FFFFFF?text=Cooler",
+      "createdAt": "2024-02-05T14:10:00.000Z",
+      "updatedAt": "2024-02-05T14:10:00.000Z"
+    },
+    {
+      "id": 23,
+      "title": "Kindle E-reader",
+      "description": "E-reader com tela de 6.8 polegadas, luz ajustável, resistência à água e armazenamento para milhares de livros.",
+      "imageUrl": "https://placehold.co/300x200/424242/FFFFFF?text=Kindle",
+      "createdAt": "2024-02-06T11:55:00.000Z",
+      "updatedAt": "2024-02-06T11:55:00.000Z"
+    },
+    {
+      "id": 24,
+      "title": "Hub USB-C 7 em 1",
+      "description": "Hub multiportas com USB-C, HDMI 4K, USB 3.0, leitor de cartão SD e carregamento pass-through para laptops.",
+      "imageUrl": "https://placehold.co/300x200/607D8B/FFFFFF?text=Hub",
+      "createdAt": "2024-02-07T16:30:00.000Z",
+      "updatedAt": "2024-02-07T16:30:00.000Z"
+    },
+    {
+      "id": 25,
+      "title": "Estabilizador Gimbal",
+      "description": "Estabilizador de 3 eixos para smartphones com controle por app, modo time-lapse e bateria de 12 horas.",
+      "imageUrl": "https://placehold.co/300x200/4CAF50/FFFFFF?text=Gimbal",
+      "createdAt": "2024-02-08T13:20:00.000Z",
+      "updatedAt": "2024-02-08T13:20:00.000Z"
     }
   ]
 }
