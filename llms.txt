@@ -5,12 +5,13 @@ Aplicação Angular 20 para gerenciamento de itens com operações CRUD completa
 
 ## Tecnologias Utilizadas
 - Angular 20 com Standalone Components
-- Angular Material Design com tema purple personalizado
+- Angular Material Design com tema purple-green + customizações purple
 - RxJS e Signals para gerenciamento de estado
 - JSON Server para API simulada
 - TypeScript com JSDoc para documentação
 - ngx-image-cropper para recorte de imagens
 - Compodoc para documentação técnica
+- Gradientes e estilos CSS3 personalizados
 
 ## Estrutura do Projeto
 ```
@@ -45,11 +46,20 @@ src/app/
 - ✅ Paginação completa
 - ✅ Feedback visual com Material Snackbar
 - ✅ Documentação JSDoc completa
-- ✅ Tema purple personalizado do Material Design
+- ✅ Tema purple-green com customizações purple (gradientes)
 - ✅ Componentes genéricos reutilizáveis
 - ✅ Estados de carregamento com spinners
 - ✅ Tratamento de erros robusto
-- ✅ Design responsivo
+- ✅ Design responsivo com cards arredondados
+
+## Melhorias Visuais v1.1.2
+- ✅ **Paginator Estilizado**: Gradiente purple com navegação aprimorada
+- ✅ **Cards Premium**: Gradientes sutis e bordas purple suaves
+- ✅ **Micro-Interações**: Hover effects com transform e scaling
+- ✅ **Consistência Visual**: Todas as cores seguem paleta purple
+- ✅ **Transições Suaves**: cubic-bezier para animações naturais
+- ✅ **Contraste Otimizado**: Cores testadas para acessibilidade
+- ✅ **Elementos Temáticos**: Spinners, forms e notificações consistentes
 
 ## Comandos Úteis
 ```bash
@@ -80,12 +90,26 @@ npm test
 ## Recursos Angular 20 Utilizados
 - **Standalone Components**: Todos os componentes são independentes
 - **Signals**: Para gerenciamento de estado reativo
-- **Control Flow**: Uso de @if, @for nas templates
-- **Material Design System**: Tema personalizado purple
+- **Control Flow**: Uso de @if, @for nos templates
+- **Material Design System**: Tema purple-green + customizações CSS
 - **Reactive Forms**: Validação em tempo real
 - **HTTP Client**: Comunicação com JSON Server
 - **Router**: Lazy loading de componentes
 - **Dependency Injection**: Injeção moderna com inject()
+
+## Customizações de Tema
+- **Tema Base**: purple-green.css (Material Design)
+- **Gradientes Personalizados**: 
+  - Toolbar e botões: linear-gradient(135deg, #673ab7 0%, #9c27b0 100%)
+  - Cards: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%)
+  - Paginator: gradiente purple com texto branco
+  - Background: gradiente sutil no body
+- **Bordas Arredondadas**: Cards e elementos com border-radius 12px
+- **Sombras Temáticas**: Box-shadows com cores purple rgba(103, 58, 183, 0.08)
+- **Hover Effects**: Transform translateY(-2px) e sombras expandidas
+- **Form Fields**: Estados de foco com cores purple
+- **Snackbars**: Gradientes específicos por tipo de notificação
+- **Spinners**: Loading indicators com stroke purple
 
 ## API Endpoints (JSON Server)
 ```

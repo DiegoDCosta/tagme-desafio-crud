@@ -280,6 +280,12 @@ npm run build
 - ✅ **Documentação Atualizada**: README.md e llms.txt com informações detalhadas
 - ✅ **JSDoc Melhorado**: Comentários atualizados em todos os componentes
 
+### v1.1.1 - Correção do Tema Material Design
+- ✅ **Tema Purple Correto**: Substituição do cyan-orange.css pelo purple-green.css
+- ✅ **Customizações Purple**: Gradientes e estilos personalizados em tons de roxo
+- ✅ **Título da Aplicação**: Atualizado para "Gerenciador de Itens - TagMe Desafio"
+- ✅ **Estilização Melhorada**: Cards com bordas arredondadas e sombras suaves
+
 ## 📋 Próximos Passos
 
 - [ ] Autenticação e autorização
