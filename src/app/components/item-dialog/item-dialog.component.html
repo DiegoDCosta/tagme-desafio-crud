@@ -59,8 +59,8 @@
               URL da Imagem:
             </span>
             <span class="info-value image-url">
-              <a [href]="data.imageUrl" target="_blank" rel="noopener" [id]="'link-image-url-' + data.id">
-                {{ data.imageUrl }}
+              <a [href]="data.imageUrl" target="_blank" rel="noopener" [id]="'link-image-url-' + data.id" [title]="data.imageUrl">
+                {{ shortenUrl(data.imageUrl) }}
                 <mat-icon>open_in_new</mat-icon>
               </a>
             </span>

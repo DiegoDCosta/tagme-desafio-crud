@@ -117,4 +117,21 @@ export class ItemDialogComponent {
   editItem(): void {
     this.dialogRef.close('edit');
   }
+
+  /**
+   * Encurta uma URL para exibição
+   * @param {string} url - URL completa
+   * @param {number} maxLength - Comprimento máximo (padrão: 40)
+   * @returns {string} URL encurtada
+   */
+  shortenUrl(url: string, maxLength: number = 40): string {
+    if (url.length <= maxLength) {
+      return url;
+    }
+    
+    const start = Math.floor(maxLength * 0.6);
+    const end = maxLength - start - 3;
+    
+    return url.substring(0, start) + '...' + url.substring(url.length - end);
+  }
 }
