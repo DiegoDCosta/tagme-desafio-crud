@@ -3,12 +3,14 @@
  * @author AI Assistant
  */
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
 import { Item } from '../../models/item.model';
+import { ItemFormComponent } from '../item-form/item-form.component';
 
 /**
  * Componente para exibir um item em formato de card
@@ -39,6 +41,11 @@ import { Item } from '../../models/item.model';
   styleUrls: ['./item-card.component.scss']
 })
 export class ItemCardComponent {
+  /**
+   * Injeção de dependências
+   */
+  private readonly dialog = inject(MatDialog);
+
   /**
    * Item a ser exibido no card
    * @type {Item}
@@ -72,6 +79,12 @@ export class ItemCardComponent {
   @Output() edit = new EventEmitter<Item>();
 
   /**
+   * Evento emitido quando o item é salvo após edição
+   * @type {EventEmitter<void>}
+   */
+  @Output() itemSaved = new EventEmitter<void>();
+
+  /**
    * Evento emitido quando o usuário clica para excluir o item
    * @type {EventEmitter<Item>}
    */
@@ -87,10 +100,22 @@ export class ItemCardComponent {
 
   /**
    * Manipula o evento de edição do item
+   * Abre modal com formulário de edição
    * @returns {void}
    */
   onEdit(): void {
-    this.edit.emit(this.item);
+    const dialogRef = this.dialog.open(ItemFormComponent, {
+      width: '800px',
+      maxWidth: '95vw',
+      data: this.item,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'saved') {
+        this.itemSaved.emit();
+      }
+    });
   }
 
   /**

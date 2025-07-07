@@ -377,4 +377,12 @@ export class ItemListComponent implements OnInit, OnDestroy {
       sortDirection: 'asc'
     });
   }
+
+  /**
+   * Manipula o evento de item salvo
+   * Recarrega a lista de itens
+   */
+  onItemSaved(): void {
+    this.loadItems();
+  }
 }

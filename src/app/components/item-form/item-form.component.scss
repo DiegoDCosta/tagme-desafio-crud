@@ -1,8 +1,26 @@
-    .item-form-card {
-      max-width: 800px;
-      margin: 16px auto;
-      padding: 8px;
-    }
+    // Estilos para versão modal
+.dialog-form {
+    max-width: 800px;
+    width: 100%;
+}
+
+.dialog-content {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+// Estilos para versão card
+.item-form-card {
+  max-width: 800px;
+  margin: 16px auto;
+  padding: 8px;
+}
 
     .full-width {
       width: 100%;

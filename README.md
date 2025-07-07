@@ -330,6 +330,14 @@ npm run build
 - ✅ **Suporte a IDEs**: Melhor syntax highlighting e autocomplete em editores
 - ✅ **Padrão Angular**: Segue as melhores práticas recomendadas pelo Angular Style Guide
 
+### v1.1.7 - Modal de Edição de Itens
+- ✅ **Edição em Modal**: Botão "Editar" nos cards agora abre formulário em modal
+- ✅ **Formulário Híbrido**: ItemFormComponent funciona tanto como página quanto como modal
+- ✅ **UX Melhorada**: Edição mais rápida sem navegar para outra tela
+- ✅ **Atualização Automática**: Lista recarrega automaticamente após salvar item
+- ✅ **Integração com Serviços**: Modal chama diretamente os serviços de API
+- ✅ **ID Único**: Botão de editar mantém ID `btn-edit-inline-item-{id}` para automação
+
 ## 📋 Próximos Passos
 
 - [ ] Autenticação e autorização

@@ -115,7 +115,8 @@
               [isLoading]="loadingItemId() === item.id"
               (view)="viewItem($event)"
               (edit)="editItem($event)"
-              (delete)="deleteItem($event)">
+              (delete)="deleteItem($event)"
+              (itemSaved)="onItemSaved()">
             </app-item-card>
           }
         </div>

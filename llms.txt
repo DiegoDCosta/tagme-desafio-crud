@@ -173,6 +173,37 @@ src/app/shared/components/
     └── spinner.component.scss
 ```
 
+## Modal de Edição de Itens v1.1.7
+- ✅ **Edição em Modal**: Implementado modal para editar itens diretamente dos cards
+- ✅ **Formulário Híbrido**: ItemFormComponent funciona como página e modal
+- ✅ **Detecção Automática**: Detecta se está sendo usado como modal ou página
+- ✅ **Integração Completa**: Modal chama serviços e notificações diretamente
+- ✅ **UX Otimizada**: Edição rápida sem perder contexto da lista
+- ✅ **Atualização Dinâmica**: Lista recarrega automaticamente após edição
+- ✅ **Compatibilidade**: Mantém funcionamento original para criação de itens
+
+### Funcionamento Técnico
+
+#### ItemCardComponent
+- Injeta MatDialog para abrir modais
+- Método onEdit() abre ItemFormComponent como modal
+- Emite evento itemSaved quando item é salvo
+- Passa dados do item para o modal
+
+#### ItemFormComponent Híbrido
+- Detecta se está sendo usado como modal via dialogRef
+- Template condicional: versão modal ou card
+- Chama serviços diretamente quando em modo modal
+- Retorna resultado 'saved' para o componente pai
+
+#### Fluxo de Edição
+1. Usuário clica em "Editar" no card
+2. Modal abre com dados do item preenchidos
+3. Usuário modifica e salva
+4. Service atualiza item na API
+5. Modal fecha retornando 'saved'
+6. Lista recarrega automaticamente
+
 ## Comandos Úteis
 ```bash
 # Instalar dependências

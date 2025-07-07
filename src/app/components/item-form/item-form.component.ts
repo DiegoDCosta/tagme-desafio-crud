@@ -3,8 +3,9 @@
  * @author AI Assistant
  */
 
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, signal, computed } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, signal, computed, Inject, Optional, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +15,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
 import { Subject, takeUntil } from 'rxjs';
 import { Item, CreateItemDto, UpdateItemDto } from '../../models/item.model';
+import { ItemService } from '../../services/item.service';
+import { NotificationService } from '../../services/notification.service';
 
 /**
  * Componente de formulário para criar e editar itens
@@ -35,6 +38,7 @@ import { Item, CreateItemDto, UpdateItemDto } from '../../models/item.model';
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -47,6 +51,13 @@ import { Item, CreateItemDto, UpdateItemDto } from '../../models/item.model';
   styleUrls: ['./item-form.component.scss']
 })
 export class ItemFormComponent implements OnInit, OnDestroy {
+  /**
+   * Injeção de dependências
+   */
+  private readonly fb = inject(FormBuilder);
+  private readonly itemService = inject(ItemService);
+  private readonly notificationService = inject(NotificationService);
+  
   /**
    * Item para edição (opcional)
    * @type {Item | null}
@@ -114,10 +125,16 @@ export class ItemFormComponent implements OnInit, OnDestroy {
 
   /**
    * Construtor do componente
-   * @param {FormBuilder} fb - FormBuilder para criar formulários reativos
    */
-  constructor(private fb: FormBuilder) {
-    this.initializeForm();
+  constructor(
+    @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: Item | null,
+    @Optional() public dialogRef: MatDialogRef<ItemFormComponent>
+  ) {
+    // Se o componente for usado como diálogo, usa os dados do diálogo
+    if (this.dialogData) {
+      this.item = this.dialogData;
+    }
+    // Inicialização do formulário será feita no ngOnInit
   }
 
   /**
@@ -125,6 +142,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
    * @returns {void}
    */
   ngOnInit(): void {
+    this.initializeForm();
     this.setupForm();
     this.setupFormValueChanges();
   }
@@ -171,9 +189,11 @@ export class ItemFormComponent implements OnInit, OnDestroy {
     this.itemForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
-      imageUrl: ['', [Validators.required, Validators.pattern(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)$/i)]]
+      imageUrl: ['', [Validators.required]]
     });
   }
+
+
 
   /**
    * Configura o formulário com dados do item
@@ -222,12 +242,41 @@ export class ItemFormComponent implements OnInit, OnDestroy {
    * @returns {void}
    */
   onImageCropped(event: ImageCroppedEvent): void {
-    if (event.objectUrl) {
-      this.croppedImageUrl.set(event.objectUrl);
+    console.log('onImageCropped chamado:', event);
+    console.log('event.base64 existe?', !!event.base64);
+    console.log('event.blob existe?', !!event.blob);
+    
+    if (event.base64) {
+      // Se já tem base64, usa direto
+      this.croppedImageUrl.set(event.base64);
       this.itemForm.patchValue({
-        imageUrl: event.objectUrl
+        imageUrl: event.base64
       });
+      console.log('FormControl imageUrl atualizado com base64:', this.itemForm.get('imageUrl')?.value?.length, 'caracteres');
+    } else if (event.blob) {
+      // Se tem blob, converte para base64
+      console.log('Convertendo blob para base64...');
+      this.convertBlobToBase64(event.blob);
+    } else {
+      console.log('Nem base64 nem blob disponível');
     }
+  }
+
+  /**
+   * Converte blob para base64
+   */
+  private convertBlobToBase64(blob: Blob): void {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = reader.result as string;
+      console.log('Blob convertido para base64, tamanho:', base64.length);
+      this.croppedImageUrl.set(base64);
+      this.itemForm.patchValue({
+        imageUrl: base64
+      });
+      console.log('FormControl imageUrl atualizado com blob->base64:', this.itemForm.get('imageUrl')?.value?.length, 'caracteres');
+    };
+    reader.readAsDataURL(blob);
   }
 
   /**
@@ -260,6 +309,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     if (this.itemForm.valid) {
       const formData = this.itemForm.value;
+      this.isLoading = true;
       
       if (this.isEditMode()) {
         const updateData: UpdateItemDto = {
@@ -267,14 +317,48 @@ export class ItemFormComponent implements OnInit, OnDestroy {
           description: formData.description,
           imageUrl: formData.imageUrl
         };
-        this.save.emit(updateData);
+        
+        // Se usado como diálogo, chama o service diretamente
+        if (this.dialogRef && this.item) {
+          this.itemService.updateItem(this.item.id, updateData)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe({
+              next: () => {
+                this.notificationService.success('Item atualizado com sucesso');
+                this.dialogRef.close('saved');
+              },
+              error: () => {
+                this.notificationService.error('Erro ao atualizar item');
+                this.isLoading = false;
+              }
+            });
+        } else {
+          this.save.emit(updateData);
+        }
       } else {
         const createData: CreateItemDto = {
           title: formData.title,
           description: formData.description,
           imageUrl: formData.imageUrl
         };
-        this.save.emit(createData);
+        
+        // Se usado como diálogo, chama o service diretamente
+        if (this.dialogRef) {
+          this.itemService.createItem(createData)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe({
+              next: () => {
+                this.notificationService.success('Item criado com sucesso');
+                this.dialogRef.close('saved');
+              },
+              error: () => {
+                this.notificationService.error('Erro ao criar item');
+                this.isLoading = false;
+              }
+            });
+        } else {
+          this.save.emit(createData);
+        }
       }
     }
   }
@@ -284,6 +368,32 @@ export class ItemFormComponent implements OnInit, OnDestroy {
    * @returns {void}
    */
   onCancel(): void {
-    this.cancel.emit();
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    } else {
+      this.cancel.emit();
+    }
+  }
+
+  /**
+   * Retorna os erros do formulário para debug
+   * @returns {string}
+   */
+  getFormErrors(): string {
+    const errors: string[] = [];
+    
+    if (this.titleControl.errors) {
+      errors.push(`Título: ${JSON.stringify(this.titleControl.errors)}`);
+    }
+    
+    if (this.descriptionControl.errors) {
+      errors.push(`Descrição: ${JSON.stringify(this.descriptionControl.errors)}`);
+    }
+    
+    if (this.imageUrlControl.errors) {
+      errors.push(`Imagem: ${JSON.stringify(this.imageUrlControl.errors)}`);
+    }
+    
+    return errors.join(', ');
   }
 }
