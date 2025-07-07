@@ -143,9 +143,9 @@ export class ItemService {
     let params = new HttpParams();
     
     // Adiciona filtros de busca
-    if (filters.search) {
-      params = params.set('q', filters.search);
-    }
+    // Como o JSON Server pode não suportar busca em texto completo,
+    // vamos buscar todos e filtrar no cliente se houver termo de busca
+    const hasSearch = filters.search && filters.search.trim().length > 0;
     
     // Adiciona ordenação
     if (filters.sortBy) {
@@ -153,18 +153,50 @@ export class ItemService {
       params = params.set('_order', filters.sortDirection || 'asc');
     }
     
-    // Adiciona paginação
-    const start = pagination.page * pagination.pageSize;
-    params = params.set('_start', start.toString());
-    params = params.set('_limit', pagination.pageSize.toString());
+    // Se não há busca, usa paginação normal do servidor
+    if (!hasSearch) {
+      const start = pagination.page * pagination.pageSize;
+      params = params.set('_start', start.toString());
+      params = params.set('_limit', pagination.pageSize.toString());
+    }
     
     return this.http.get<Item[]>(this.ITEMS_ENDPOINT, { 
       params, 
       observe: 'response' 
     }).pipe(
       map(response => {
-        const items = response.body || [];
-        const total = parseInt(response.headers.get('X-Total-Count') || '0');
+        let items = response.body || [];
+        
+        // Se há busca, filtra os resultados localmente
+        if (hasSearch) {
+          const searchTerm = filters.search!.toLowerCase().trim();
+          items = items.filter(item => 
+            item.title.toLowerCase().includes(searchTerm) ||
+            item.description.toLowerCase().includes(searchTerm)
+          );
+        }
+        
+        // Calcula total e aplica paginação local se necessário
+        const total = items.length;
+        
+        // Se há busca, aplica paginação local
+        if (hasSearch) {
+          const start = pagination.page * pagination.pageSize;
+          const end = start + pagination.pageSize;
+          items = items.slice(start, end);
+        } else {
+          // Usa o total do servidor se não há busca
+          const serverTotal = parseInt(response.headers.get('X-Total-Count') || '0');
+          return {
+            data: items,
+            pagination: {
+              ...pagination,
+              totalItems: serverTotal,
+              totalPages: Math.ceil(serverTotal / pagination.pageSize)
+            },
+            total: serverTotal
+          };
+        }
         
         return {
           data: items,

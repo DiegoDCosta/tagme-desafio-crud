@@ -286,6 +286,21 @@ npm run build
 - ✅ **Título da Aplicação**: Atualizado para "Gerenciador de Itens - TagMe Desafio"
 - ✅ **Estilização Melhorada**: Cards com bordas arredondadas e sombras suaves
 
+### v1.1.2 - Melhorias Visuais Avançadas
+- ✅ **Paginator com Gradiente**: Mat-paginator estilizado com gradiente purple
+- ✅ **Cards Premium**: Gradiente sutil branco para cinza claro com bordas purple
+- ✅ **Background Refinado**: Gradiente no body para textura visual
+- ✅ **Form Fields Purple**: Estados de foco com cores do tema
+- ✅ **Snackbars Coloridos**: Notificações com gradientes por tipo
+- ✅ **Spinners Temáticos**: Loading indicators com cores do tema
+
+### v1.1.3 - Busca Inteligente com Debounce
+- ✅ **Busca com Debounce**: Executa busca apenas a partir do 3º caractere
+- ✅ **Filtro Local**: Busca em título e descrição com filtro local
+- ✅ **Hint Visual**: Indicador de quantos caracteres faltam para buscar
+- ✅ **Performance**: Debounce de 500ms para evitar requests excessivos
+- ✅ **UX Melhorada**: Placeholder explicativo e feedback em tempo real
+
 ## 📋 Próximos Passos
 
 - [ ] Autenticação e autorização

@@ -61,6 +61,15 @@ src/app/
 - ✅ **Contraste Otimizado**: Cores testadas para acessibilidade
 - ✅ **Elementos Temáticos**: Spinners, forms e notificações consistentes
 
+## Busca Inteligente v1.1.3
+- ✅ **Debounce Otimizado**: 500ms de delay para performance
+- ✅ **Filtro por Caracteres**: Busca executa apenas com 3+ caracteres
+- ✅ **Busca Local**: Filtro em título e descrição no cliente
+- ✅ **Feedback Visual**: Hint mostra quantos caracteres faltam
+- ✅ **UX Intuitiva**: Placeholder explicativo e estados claros
+- ✅ **Performance**: Evita requests desnecessários ao servidor
+- ✅ **Separação de Concerns**: Busca e ordenação tratadas separadamente
+
 ## Comandos Úteis
 ```bash
 # Instalar dependências

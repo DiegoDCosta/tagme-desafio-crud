@@ -85,8 +85,11 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
                 <input 
                   matInput 
                   formControlName="search"
-                  placeholder="Buscar por título ou descrição">
+                  placeholder="Digite 3+ caracteres para buscar...">
                 <mat-icon matPrefix>search</mat-icon>
+                @if (searchValue().length > 0 && searchValue().length < 3) {
+                  <mat-hint class="search-hint">Digite mais {{ 3 - searchValue().length }} caractere(s)</mat-hint>
+                }
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="sort-field">
@@ -243,6 +246,12 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
       min-width: 200px;
     }
 
+    .search-hint {
+      color: #ff9800;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
     .sort-field,
     .direction-field {
       min-width: 150px;
@@ -393,6 +402,11 @@ export class ItemListComponent implements OnInit, OnDestroy {
   filtersForm: FormGroup;
 
   /**
+   * Signal para valor da busca
+   */
+  readonly searchValue = signal<string>('');
+
+  /**
    * Signal computado para verificar se há filtros ativos
    */
   readonly hasActiveFilters = computed(() => {
@@ -434,11 +448,44 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
   /**
    * Configura os filtros com debounce
+   * Busca só é executada a partir do 3º caractere
    */
   private setupFilters(): void {
-    this.filtersForm.valueChanges
+    // Observa mudanças no campo de busca para atualizar o signal imediatamente
+    this.filtersForm.get('search')?.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((searchValue: string) => {
+        this.searchValue.set(searchValue || '');
+      });
+
+    // Observa mudanças no campo de busca com debounce para executar a busca
+    this.filtersForm.get('search')?.valueChanges
       .pipe(
-        debounceTime(300),
+        debounceTime(500), // Maior debounce para busca
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((searchValue: string) => {
+        // Só executa busca se tiver 3+ caracteres ou estiver vazio (para limpar)
+        if (!searchValue || searchValue.length >= 3) {
+          this.pagination.set({ ...this.pagination(), page: 0 });
+          this.loadItems();
+        }
+      });
+
+    // Observa mudanças nos campos de ordenação (sem debounce)
+    this.filtersForm.get('sortBy')?.valueChanges
+      .pipe(
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        this.pagination.set({ ...this.pagination(), page: 0 });
+        this.loadItems();
+      });
+
+    this.filtersForm.get('sortDirection')?.valueChanges
+      .pipe(
         distinctUntilChanged(),
         takeUntil(this.destroy$)
       )
@@ -450,12 +497,16 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
   /**
    * Carrega a lista de itens
+   * Só aplica filtro de busca se tiver 3+ caracteres
    */
   private loadItems(): void {
     this.isLoading.set(true);
     
+    const searchValue = this.filtersForm.get('search')?.value || '';
+    
     const filters: ItemFilter = {
-      search: this.filtersForm.get('search')?.value || '',
+      // Só inclui busca se tiver 3+ caracteres ou estiver vazio
+      search: (!searchValue || searchValue.length >= 3) ? searchValue : '',
       sortBy: this.filtersForm.get('sortBy')?.value || 'title',
       sortDirection: this.filtersForm.get('sortDirection')?.value || 'asc'
     };
