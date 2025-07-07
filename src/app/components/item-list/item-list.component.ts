@@ -68,6 +68,7 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
         <button 
           mat-raised-button 
           color="accent"
+          id="btn-create-item"
           (click)="openCreateDialog()"
           [disabled]="isLoading()">
           <mat-icon>add</mat-icon>
@@ -85,6 +86,7 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
                 <input 
                   matInput 
                   formControlName="search"
+                  id="input-search"
                   placeholder="Digite 3+ caracteres para buscar...">
                 <mat-icon matPrefix>search</mat-icon>
                 @if (searchValue().length > 0 && searchValue().length < 3) {
@@ -94,7 +96,7 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
 
               <mat-form-field appearance="outline" class="sort-field">
                 <mat-label>Ordenar por</mat-label>
-                <mat-select formControlName="sortBy">
+                <mat-select formControlName="sortBy" id="select-sort-by">
                   <mat-option value="title">Título</mat-option>
                   <mat-option value="createdAt">Data de Criação</mat-option>
                   <mat-option value="updatedAt">Última Atualização</mat-option>
@@ -103,7 +105,7 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
 
               <mat-form-field appearance="outline" class="direction-field">
                 <mat-label>Direção</mat-label>
-                <mat-select formControlName="sortDirection">
+                <mat-select formControlName="sortDirection" id="select-sort-direction">
                   <mat-option value="asc">Crescente</mat-option>
                   <mat-option value="desc">Decrescente</mat-option>
                 </mat-select>
@@ -113,6 +115,7 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
                 type="button"
                 mat-button 
                 color="warn"
+                id="btn-clear-filters"
                 (click)="clearFilters()"
                 [disabled]="isLoading()">
                 <mat-icon>clear</mat-icon>
@@ -141,7 +144,7 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
           <p>
             @if (hasActiveFilters()) {
               Tente ajustar os filtros de busca ou 
-              <button mat-button color="primary" (click)="clearFilters()">
+              <button mat-button color="primary" id="btn-clear-filters-empty" (click)="clearFilters()">
                 limpar filtros
               </button>
             } @else {
@@ -151,6 +154,7 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
           <button 
             mat-raised-button 
             color="primary"
+            id="btn-create-first-item"
             (click)="openCreateDialog()">
             <mat-icon>add</mat-icon>
             Criar Primeiro Item
@@ -181,6 +185,7 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
           [pageSizeOptions]="[5, 10, 25, 50]"
           [showFirstLastButtons]="true"
           (page)="onPageChange($event)"
+          id="paginator-items"
           class="pagination">
         </mat-paginator>
       }

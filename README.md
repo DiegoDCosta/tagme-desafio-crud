@@ -315,6 +315,13 @@ npm run build
 - ✅ **Experiência Melhorada**: Inicia o ambiente completo com um único comando
 - ✅ **Concorrência**: Utiliza `concurrently` para execução simultânea dos serviços
 
+### v1.1.5 - IDs Únicos para Elementos Clicáveis
+- ✅ **IDs Padronizados**: Todos os elementos clicáveis agora possuem IDs únicos para automação de testes
+- ✅ **Elementos de Lista**: IDs dinâmicos baseados no ID do item (ex: `btn-edit-item-1`, `btn-delete-item-2`)
+- ✅ **Componentes Compartilhados**: IDs em modais e diálogos de confirmação
+- ✅ **Facilita Testes**: Melhora a identificação de elementos em testes automatizados e E2E
+- ✅ **Acessibilidade**: Melhora a navegação por elementos para tecnologias assistivas
+
 ## 📋 Próximos Passos
 
 - [ ] Autenticação e autorização

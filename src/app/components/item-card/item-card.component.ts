@@ -51,20 +51,21 @@ import { Item } from '../../models/item.model';
           <button 
             mat-icon-button 
             [matMenuTriggerFor]="menu"
+            [id]="'btn-menu-item-' + item.id"
             aria-label="Ações do item">
             <mat-icon>more_vert</mat-icon>
           </button>
           
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="onView()">
+            <button mat-menu-item [id]="'btn-view-item-' + item.id" (click)="onView()">
               <mat-icon>visibility</mat-icon>
               <span>Visualizar</span>
             </button>
-            <button mat-menu-item (click)="onEdit()">
+            <button mat-menu-item [id]="'btn-edit-item-' + item.id" (click)="onEdit()">
               <mat-icon>edit</mat-icon>
               <span>Editar</span>
             </button>
-            <button mat-menu-item (click)="onDelete()" class="delete-action">
+            <button mat-menu-item [id]="'btn-delete-item-' + item.id" (click)="onDelete()" class="delete-action">
               <mat-icon>delete</mat-icon>
               <span>Excluir</span>
             </button>
@@ -72,10 +73,11 @@ import { Item } from '../../models/item.model';
         }
       </div>
 
-      <div class="card-image" (click)="onView()">
+      <div class="card-image" [id]="'img-container-item-' + item.id" (click)="onView()">
         <img 
           [src]="item.imageUrl" 
           [alt]="item.title"
+          [id]="'img-item-' + item.id"
           (error)="onImageError($event)"
           loading="lazy">
       </div>
@@ -95,6 +97,7 @@ import { Item } from '../../models/item.model';
           <button 
             mat-button 
             color="primary" 
+            [id]="'btn-view-details-item-' + item.id"
             (click)="onView()">
             <mat-icon>visibility</mat-icon>
             Ver Detalhes
@@ -102,6 +105,7 @@ import { Item } from '../../models/item.model';
           <button 
             mat-button 
             color="accent" 
+            [id]="'btn-edit-inline-item-' + item.id"
             (click)="onEdit()">
             <mat-icon>edit</mat-icon>
             Editar

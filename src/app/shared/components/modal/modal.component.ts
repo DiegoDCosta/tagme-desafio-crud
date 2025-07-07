@@ -48,6 +48,7 @@ import { NgClass } from '@angular/common';
               <button 
                 mat-icon-button 
                 class="close-button"
+                id="btn-modal-close"
                 (click)="onClose()"
                 type="button"
                 aria-label="Fechar modal">

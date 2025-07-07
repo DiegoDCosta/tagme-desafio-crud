@@ -70,6 +70,61 @@ src/app/
 - ✅ **Performance**: Evita requests desnecessários ao servidor
 - ✅ **Separação de Concerns**: Busca e ordenação tratadas separadamente
 
+## IDs Únicos para Automação v1.1.5
+- ✅ **Elementos Clicáveis Identificados**: Todos os botões, inputs e elementos clicáveis possuem IDs únicos
+- ✅ **Padrão de Nomenclatura**: IDs seguem padrão consistente (btn-, input-, select-, etc.)
+- ✅ **IDs Dinâmicos**: Para listas, IDs incluem o ID do item (ex: btn-edit-item-1)
+- ✅ **Componentes Reutilizáveis**: IDs em modais, confirmações e spinners
+- ✅ **Facilita Testes E2E**: Cypress, Selenium e outros podem localizar elementos facilmente
+- ✅ **Acessibilidade**: Melhora navegação por teclado e tecnologias assistivas
+
+### Lista Completa de IDs Implementados
+
+#### ItemListComponent
+- `btn-create-item` - Botão principal "Novo Item"
+- `input-search` - Campo de busca
+- `select-sort-by` - Select para ordenação
+- `select-sort-direction` - Select para direção da ordenação
+- `btn-clear-filters` - Botão limpar filtros
+- `btn-clear-filters-empty` - Botão limpar filtros no estado vazio
+- `btn-create-first-item` - Botão criar primeiro item
+- `paginator-items` - Paginador de itens
+
+#### ItemCardComponent (IDs dinâmicos por item)
+- `btn-menu-item-{id}` - Botão menu de ações
+- `btn-view-item-{id}` - Visualizar item (menu)
+- `btn-edit-item-{id}` - Editar item (menu)
+- `btn-delete-item-{id}` - Excluir item (menu)
+- `img-container-item-{id}` - Container da imagem
+- `img-item-{id}` - Imagem do item
+- `btn-view-details-item-{id}` - Ver detalhes (botões inline)
+- `btn-edit-inline-item-{id}` - Editar (botões inline)
+
+#### ItemFormComponent
+- `input-title` - Campo título
+- `textarea-description` - Campo descrição
+- `input-image-url` - Campo URL da imagem
+- `input-file-upload` - Input de upload de arquivo
+- `btn-select-image` - Botão selecionar imagem
+- `btn-clear-image` - Botão limpar imagem
+- `btn-cancel-form` - Botão cancelar formulário
+- `btn-save-form` - Botão salvar formulário
+
+#### ItemDialogComponent (IDs dinâmicos por item)
+- `btn-close-dialog` - Botão fechar no header
+- `img-dialog-item-{id}` - Imagem no diálogo
+- `link-image-url-{id}` - Link para URL da imagem
+- `btn-close-dialog-footer` - Botão fechar no footer
+- `btn-view-image-{id}` - Botão ver imagem
+- `btn-edit-dialog-{id}` - Botão editar no diálogo
+
+#### Componentes Compartilhados
+- `btn-confirm-cancel` - Botão cancelar (ConfirmDialog)
+- `btn-confirm-action` - Botão confirmar (ConfirmDialog)
+- `modal-overlay` - Overlay do modal
+- `modal-container` - Container do modal
+- `btn-modal-close` - Botão fechar modal
+
 ## Comandos Úteis
 ```bash
 # Instalar dependências

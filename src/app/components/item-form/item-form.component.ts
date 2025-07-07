@@ -59,6 +59,7 @@ import { Item, CreateItemDto, UpdateItemDto } from '../../models/item.model';
             <input 
               matInput 
               formControlName="title"
+              id="input-title"
               placeholder="Digite o título do item"
               maxlength="100">
             <mat-hint>{{ titleControl.value?.length || 0 }}/100</mat-hint>
@@ -80,6 +81,7 @@ import { Item, CreateItemDto, UpdateItemDto } from '../../models/item.model';
             <textarea 
               matInput 
               formControlName="description"
+              id="textarea-description"
               placeholder="Digite a descrição do item"
               rows="4"
               maxlength="500">
@@ -103,6 +105,7 @@ import { Item, CreateItemDto, UpdateItemDto } from '../../models/item.model';
             <input 
               matInput 
               formControlName="imageUrl"
+              id="input-image-url"
               placeholder="Digite a URL da imagem ou faça upload"
               type="url">
             @if (imageUrlControl.invalid && (imageUrlControl.dirty || imageUrlControl.touched)) {
@@ -123,6 +126,7 @@ import { Item, CreateItemDto, UpdateItemDto } from '../../models/item.model';
             <input 
               type="file" 
               accept="image/*"
+              id="input-file-upload"
               (change)="onImageSelected($event)"
               #fileInput
               style="display: none;">
@@ -132,6 +136,7 @@ import { Item, CreateItemDto, UpdateItemDto } from '../../models/item.model';
                 type="button"
                 mat-raised-button 
                 color="accent"
+                id="btn-select-image"
                 (click)="fileInput.click()">
                 <mat-icon>cloud_upload</mat-icon>
                 Selecionar Imagem
@@ -142,6 +147,7 @@ import { Item, CreateItemDto, UpdateItemDto } from '../../models/item.model';
                   type="button"
                   mat-button 
                   color="warn"
+                  id="btn-clear-image"
                   (click)="clearImage()">
                   <mat-icon>clear</mat-icon>
                   Limpar
@@ -187,6 +193,7 @@ import { Item, CreateItemDto, UpdateItemDto } from '../../models/item.model';
         <button 
           type="button"
           mat-button 
+          id="btn-cancel-form"
           (click)="onCancel()"
           [disabled]="isLoading">
           <mat-icon>close</mat-icon>
@@ -197,6 +204,7 @@ import { Item, CreateItemDto, UpdateItemDto } from '../../models/item.model';
           type="submit"
           mat-raised-button 
           color="primary"
+          id="btn-save-form"
           (click)="onSubmit()"
           [disabled]="itemForm.invalid || isLoading">
           @if (isLoading) {

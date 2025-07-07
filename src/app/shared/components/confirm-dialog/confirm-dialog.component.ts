@@ -67,6 +67,7 @@ export interface ConfirmDialogData {
         <button 
           mat-button 
           (click)="onCancel()"
+          id="btn-confirm-cancel"
           type="button">
           {{ data.cancelText || 'Cancelar' }}
         </button>
@@ -74,6 +75,7 @@ export interface ConfirmDialogData {
           mat-raised-button 
           [color]="data.type || 'primary'"
           (click)="onConfirm()"
+          id="btn-confirm-action"
           type="button">
           {{ data.confirmText || 'Confirmar' }}
         </button>

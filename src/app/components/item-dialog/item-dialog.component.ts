@@ -41,6 +41,7 @@ import { Item } from '../../models/item.model';
         <button 
           mat-icon-button 
           mat-dialog-close
+          id="btn-close-dialog"
           aria-label="Fechar diálogo">
           <mat-icon>close</mat-icon>
         </button>
@@ -52,6 +53,7 @@ import { Item } from '../../models/item.model';
           <img 
             [src]="data.imageUrl" 
             [alt]="data.title"
+            [id]="'img-dialog-item-' + data.id"
             class="item-image"
             (error)="onImageError($event)">
         </div>
@@ -94,7 +96,7 @@ import { Item } from '../../models/item.model';
                   URL da Imagem:
                 </span>
                 <span class="info-value image-url">
-                  <a [href]="data.imageUrl" target="_blank" rel="noopener">
+                  <a [href]="data.imageUrl" target="_blank" rel="noopener" [id]="'link-image-url-' + data.id">
                     {{ data.imageUrl }}
                     <mat-icon>open_in_new</mat-icon>
                   </a>
@@ -179,7 +181,8 @@ import { Item } from '../../models/item.model';
         <button 
           mat-button 
           mat-dialog-close
-          color="primary">
+          color="primary"
+          id="btn-close-dialog-footer">
           <mat-icon>close</mat-icon>
           Fechar
         </button>
@@ -187,6 +190,7 @@ import { Item } from '../../models/item.model';
         <button 
           mat-raised-button 
           color="accent"
+          [id]="'btn-view-image-' + data.id"
           (click)="openImageInNewTab()">
           <mat-icon>open_in_new</mat-icon>
           Ver Imagem
@@ -195,6 +199,7 @@ import { Item } from '../../models/item.model';
         <button 
           mat-raised-button 
           color="primary"
+          [id]="'btn-edit-dialog-' + data.id"
           (click)="editItem()">
           <mat-icon>edit</mat-icon>
           Editar
