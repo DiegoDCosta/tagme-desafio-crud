@@ -153,6 +153,21 @@ DELETE /items/:id          # Excluir item
 GET /items?q=search&_sort=field&_order=asc&_page=1&_limit=10
 ```
 
+### Serviço de Imagens
+
+O projeto utiliza o **placehold.co** como serviço de placeholder para imagens:
+
+- **Service**: https://placehold.co/
+- **Formato Básico**: `https://placehold.co/WIDTHxHEIGHT?text=TEXTO`
+- **Formato Colorido**: `https://placehold.co/WIDTHxHEIGHT/COR_FUNDO/COR_TEXTO?text=TEXTO`
+- **Exemplos**:
+  - Simples: `https://placehold.co/300x200?text=Item+1`
+  - Colorido: `https://placehold.co/300x200/4A90E2/FFFFFF?text=Smartphone`
+- **Fallback**: Imagens quebradas são substituídas automaticamente por placeholders
+- **Suporte**: JPG, PNG, GIF, WebP
+- **Cores**: Hexadecimal (sem #) para fundo e texto
+- **Dimensões**: Qualquer tamanho (recomendado: aspect ratio 4:3 para cards)
+
 ## 🎨 Componentes Principais
 
 ### 1. ItemListComponent
@@ -255,6 +270,15 @@ npm run build
 3. Commit suas mudanças
 4. Push para a branch
 5. Abra um Pull Request
+
+## 🔄 Atualizações Recentes
+
+### v1.1.0 - Melhorias no Serviço de Imagens
+- ✅ **Migração para placehold.co**: Substituição do via.placeholder.com pelo placehold.co (mais estável)
+- ✅ **URLs Coloridas**: Suporte a placeholders com cores personalizadas
+- ✅ **Dados Reais**: Exemplos mais realistas no db.json (Smartphone, Notebook, Fones)
+- ✅ **Documentação Atualizada**: README.md e llms.txt com informações detalhadas
+- ✅ **JSDoc Melhorado**: Comentários atualizados em todos os componentes
 
 ## 📋 Próximos Passos
 

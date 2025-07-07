@@ -297,12 +297,13 @@ export class ItemCardComponent {
 
   /**
    * Manipula erros de carregamento de imagem
+   * Substitui por placeholder do serviço placehold.co em caso de erro
    * @param {Event} event - Evento de erro da imagem
    * @returns {void}
    */
   onImageError(event: Event): void {
     const img = event.target as HTMLImageElement;
-    img.src = 'https://via.placeholder.com/400x200?text=Imagem+não+encontrada';
+    img.src = 'https://placehold.co/400x200?text=Imagem+não+encontrada';
   }
 
   /**

@@ -471,12 +471,13 @@ export class ItemDialogComponent {
 
   /**
    * Manipula erros de carregamento de imagem
+   * Substitui por placeholder do serviço placehold.co em caso de erro
    * @param {Event} event - Evento de erro
    * @returns {void}
    */
   onImageError(event: Event): void {
     const img = event.target as HTMLImageElement;
-    img.src = 'https://via.placeholder.com/400x300?text=Imagem+não+encontrada';
+    img.src = 'https://placehold.co/400x300?text=Imagem+não+encontrada';
   }
 
   /**

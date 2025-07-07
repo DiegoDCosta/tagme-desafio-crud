@@ -111,6 +111,18 @@ interface Item {
 }
 ```
 
+## Serviço de Imagens
+- **Placeholder Service**: https://placehold.co/
+- **Formato Básico**: `https://placehold.co/WIDTHxHEIGHT?text=TEXTO`
+- **Formato Colorido**: `https://placehold.co/WIDTHxHEIGHT/COR_FUNDO/COR_TEXTO?text=TEXTO`
+- **URLs de exemplo**: 
+  - Simples: https://placehold.co/300x200?text=Item+1
+  - Colorido: https://placehold.co/300x200/4A90E2/FFFFFF?text=Smartphone
+- **Fallback para erros**: https://placehold.co/400x300?text=Imagem+não+encontrada
+- **Formatos suportados**: JPG, PNG, GIF, WebP
+- **Cores**: Hexadecimal sem # (ex: 4A90E2 para azul)
+- **Aspect Ratio recomendado**: 4:3 para cards, 3:2 para detalhes
+
 ## Componentes Genéricos Criados
 1. **SpinnerComponent**: Loading indicator customizável
 2. **ModalComponent**: Modal genérico com slots
@@ -162,6 +174,41 @@ interface Item {
 - ARIA attributes nos componentes
 - Navegação por teclado
 - Alto contraste no tema
+
+## Dados de Exemplo
+
+O arquivo `db.json` contém dados de exemplo atualizados:
+
+```json
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "Smartphone Premium",
+      "description": "Smartphone de última geração com câmera profissional, tela AMOLED de 6.7 polegadas e bateria de longa duração. Perfeito para fotografia e produtividade.",
+      "imageUrl": "https://placehold.co/300x200/4A90E2/FFFFFF?text=Smartphone",
+      "createdAt": "2024-01-15T10:30:00.000Z",
+      "updatedAt": "2024-01-15T10:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "title": "Notebook Gamer",
+      "description": "Notebook para jogos com placa de vídeo dedicada, processador Intel i7, 16GB RAM e SSD 512GB. Ideal para games e trabalho pesado.",
+      "imageUrl": "https://placehold.co/300x200/50C878/FFFFFF?text=Notebook",
+      "createdAt": "2024-01-16T14:20:00.000Z",
+      "updatedAt": "2024-01-16T14:20:00.000Z"
+    },
+    {
+      "id": 3,
+      "title": "Fones Bluetooth",
+      "description": "Fones de ouvido sem fio com cancelamento de ruído ativo, até 30 horas de bateria e qualidade de som premium para música e chamadas.",
+      "imageUrl": "https://placehold.co/300x200/9B59B6/FFFFFF?text=Fones",
+      "createdAt": "2024-01-17T09:15:00.000Z",
+      "updatedAt": "2024-01-17T09:15:00.000Z"
+    }
+  ]
+}
+```
 
 ## Próximos Passos
 - Implementar autenticação
