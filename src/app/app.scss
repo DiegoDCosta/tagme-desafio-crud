@@ -1,0 +1,38 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+
+// Estilos globais para notificações
+:host ::ng-deep {
+  .notification {
+    font-weight: 500;
+    
+    &.notification-success {
+      background-color: #4caf50;
+      color: white;
+    }
+    
+    &.notification-error {
+      background-color: #f44336;
+      color: white;
+    }
+    
+    &.notification-warning {
+      background-color: #ff9800;
+      color: white;
+    }
+    
+    &.notification-info {
+      background-color: #2196f3;
+      color: white;
+    }
+    
+    &.notification-confirm {
+      background-color: #673ab7;
+      color: white;
+    }
+  }
+}

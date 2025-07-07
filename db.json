@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "Exemplo de Item 1",
+      "description": "Descrição detalhada do primeiro item de exemplo",
+      "imageUrl": "https://via.placeholder.com/300x200?text=Item+1"
+    },
+    {
+      "id": 2,
+      "title": "Exemplo de Item 2", 
+      "description": "Descrição detalhada do segundo item de exemplo",
+      "imageUrl": "https://via.placeholder.com/300x200?text=Item+2"
+    }
+  ]
+}

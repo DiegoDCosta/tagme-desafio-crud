@@ -1,59 +1,281 @@
-# TagmeDesafio
+# Angular 20 CRUD Item Manager - TagMe Desafio
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.5.
+Uma aplicação Angular 20 completa para gerenciamento de itens com operações CRUD, utilizando Angular Material, RxJS Signals e json-server como backend simulado.
 
-## Development server
+## 🚀 Funcionalidades
 
-To start a local development server, run:
+- ✅ **CRUD Completo**: Criar, listar, editar e excluir itens
+- ✅ **Angular 20**: Standalone Components com Control Flow (@if, @for)
+- ✅ **Material Design**: Tema purple personalizado
+- ✅ **Signals**: Gerenciamento de estado reativo
+- ✅ **Upload de Imagens**: Com recorte usando ngx-image-cropper
+- ✅ **Filtros e Busca**: Por título, descrição e ordenação
+- ✅ **Paginação**: Navegação eficiente entre páginas
+- ✅ **Responsivo**: Design mobile-first
+- ✅ **Documentação**: JSDoc completa + Compodoc
+- ✅ **Componentes Reutilizáveis**: Spinner, Modal, Confirm Dialog
+- ✅ **Tratamento de Erros**: Feedback visual com snackbars
+- ✅ **Loading States**: Estados de carregamento em todas as operações
 
-```bash
-ng serve
-```
+## 🛠️ Tecnologias Utilizadas
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Angular 20** com Standalone Components
+- **Angular Material** (tema purple personalizado)
+- **RxJS** e **Signals** para estado reativo
+- **TypeScript** com documentação JSDoc
+- **JSON Server** para API REST simulada
+- **ngx-image-cropper** para recorte de imagens
+- **Compodoc** para documentação técnica
 
-## Code scaffolding
+## 📋 Pré-requisitos
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Node.js (versão 18+)
+- npm ou yarn
+- Angular CLI 20+
 
-```bash
-ng generate component component-name
-```
+## 🔧 Instalação e Configuração
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### 1. Clone o repositório
 
 ```bash
-ng test
+git clone <repository-url>
+cd tagme-desafio
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### 2. Instale as dependências
 
 ```bash
-ng e2e
+npm install
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### 3. Configuração completa (já executada)
 
-## Additional Resources
+As seguintes dependências já foram instaladas e configuradas:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+# Angular Material
+ng add @angular/material
+
+# Dependências de desenvolvimento
+npm install --save-dev jsdoc @compodoc/compodoc json-server
+
+# Dependências de produção
+npm install @angular/animations ngx-image-cropper
+```
+
+## 🚦 Executando a Aplicação
+
+### Modo Desenvolvimento
+
+1. **Inicie o JSON Server** (em um terminal):
+```bash
+npm run json-server
+```
+
+2. **Inicie a aplicação Angular** (em outro terminal):
+```bash
+npm start
+```
+
+3. **Acesse a aplicação**:
+   - Frontend: http://localhost:4200
+   - API JSON Server: http://localhost:3000
+
+### Scripts Disponíveis
+
+```bash
+# Desenvolvimento
+npm start                    # Inicia aplicação Angular
+npm run json-server         # Inicia JSON Server na porta 3000
+
+# Build e Produção
+npm run build               # Build para produção
+npm run watch               # Build em modo watch
+
+# Documentação
+npm run doc:build           # Gera documentação Compodoc
+npm run doc:serve           # Serve documentação
+npm run doc:buildandserve   # Gera e serve documentação
+npm run jsdoc               # Gera documentação JSDoc
+
+# Testes
+npm test                    # Executa testes unitários
+```
+
+## 📁 Estrutura do Projeto
+
+```
+src/app/
+├── components/              # Componentes principais
+│   ├── item-list/          # Lista com filtros e paginação
+│   ├── item-form/          # Formulário criar/editar
+│   ├── item-card/          # Card para exibir item
+│   └── item-dialog/        # Modal detalhes do item
+├── services/               # Services da aplicação
+│   ├── item.service.ts     # CRUD operations com API
+│   └── notification.service.ts # Sistema de notificações
+├── models/                 # Interfaces TypeScript
+│   └── item.model.ts       # Modelos de dados
+├── shared/                 # Componentes reutilizáveis
+│   └── components/
+│       ├── spinner/        # Loading indicator
+│       ├── modal/          # Modal genérico
+│       └── confirm-dialog/ # Diálogo confirmação
+├── guards/                 # Route guards
+└── interceptors/           # HTTP interceptors
+```
+
+## 🗃️ Estrutura de Dados
+
+### Item Model
+
+```typescript
+interface Item {
+  id: number;
+  title: string;        // Obrigatório, min 3 chars
+  description: string;  // Obrigatório, min 10 chars
+  imageUrl: string;     // Obrigatório, URL válida
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+```
+
+### API Endpoints (JSON Server)
+
+```
+GET    /items              # Listar todos os itens
+GET    /items/:id          # Buscar item por ID
+POST   /items              # Criar novo item
+PUT    /items/:id          # Atualizar item
+DELETE /items/:id          # Excluir item
+
+# Filtros suportados:
+GET /items?q=search&_sort=field&_order=asc&_page=1&_limit=10
+```
+
+## 🎨 Componentes Principais
+
+### 1. ItemListComponent
+- Lista paginada de itens
+- Filtros de busca e ordenação
+- Ações CRUD inline
+- Estados de loading e erro
+
+### 2. ItemFormComponent
+- Formulário reativo com validação
+- Upload e recorte de imagens
+- Modo criar/editar
+- Preview em tempo real
+
+### 3. ItemCardComponent
+- Exibição visual do item
+- Menu de ações
+- Hover effects
+- Responsive design
+
+### 4. Componentes Compartilhados
+- **SpinnerComponent**: Loading customizável
+- **ModalComponent**: Modal genérico
+- **ConfirmDialogComponent**: Confirmação de ações
+
+## 🔧 Funcionalidades Avançadas
+
+### Validações Implementadas
+- **Título**: Obrigatório, mínimo 3 caracteres
+- **Descrição**: Obrigatória, mínimo 10 caracteres
+- **Imagem**: URL válida obrigatória
+- **Recorte**: Aspect ratio 4:3, dimensões mínimas
+
+### Estados de Loading
+- Loading global durante operações
+- Loading por item durante exclusão
+- Spinners com mensagens contextuais
+- Desabilitação de ações durante processo
+
+### Sistema de Notificações
+- Sucesso, erro, aviso e info
+- Snackbars do Material Design
+- Feedback visual para todas as ações
+- Configuração de duração personalizada
+
+## 📚 Documentação
+
+### Geração de Documentação
+
+```bash
+# Compodoc (arquitetura e componentes)
+npm run doc:build
+
+# JSDoc (código e APIs)
+npm run jsdoc
+```
+
+### Documentação Disponível
+- **Compodoc**: `./documentation/index.html`
+- **JSDoc**: `./docs/jsdoc/index.html`
+- **llms.txt**: Documentação para LLMs na raiz
+
+## 🧪 Testes
+
+### Estrutura de Testes
+- Testes unitários com Jasmine/Karma
+- Mocks para services
+- Cobertura de componentes principais
+
+```bash
+npm test                    # Executa testes
+npm run test:coverage      # Testes com cobertura
+```
+
+## 📱 Responsividade
+
+- **Desktop**: Grid de cards, filtros laterais
+- **Tablet**: Grid adaptativo, navegação otimizada
+- **Mobile**: Layout vertical, menu hambúrguer
+- **Breakpoints**: 768px, 480px
+
+## 🚀 Deploy e Produção
+
+### Build para Produção
+
+```bash
+npm run build
+```
+
+### Otimizações Aplicadas
+- Tree shaking automático
+- Lazy loading de componentes
+- Minificação de código
+- Compressão de assets
+
+## 🤝 Contribuindo
+
+1. Fork o projeto
+2. Crie uma branch para sua feature
+3. Commit suas mudanças
+4. Push para a branch
+5. Abra um Pull Request
+
+## 📋 Próximos Passos
+
+- [ ] Autenticação e autorização
+- [ ] Cache inteligente de dados
+- [ ] PWA capabilities
+- [ ] Testes E2E com Cypress
+- [ ] Deploy automatizado
+- [ ] Internacionalização (i18n)
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 🆘 Suporte
+
+Para dúvidas e suporte:
+1. Consulte a documentação gerada
+2. Verifique os logs do console
+3. Abra uma issue no repositório
+
+---
+
+Desenvolvido com ❤️ usando Angular 20 e Material Design

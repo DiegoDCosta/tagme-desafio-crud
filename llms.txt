@@ -1,0 +1,171 @@
+# Angular 20 CRUD Item Manager
+
+## Visão Geral
+Aplicação Angular 20 para gerenciamento de itens com operações CRUD completas.
+
+## Tecnologias Utilizadas
+- Angular 20 com Standalone Components
+- Angular Material Design com tema purple personalizado
+- RxJS e Signals para gerenciamento de estado
+- JSON Server para API simulada
+- TypeScript com JSDoc para documentação
+- ngx-image-cropper para recorte de imagens
+- Compodoc para documentação técnica
+
+## Estrutura do Projeto
+```
+src/app/
+├── components/          # Componentes principais da aplicação
+│   ├── item-list/      # Lista de itens com filtros e paginação
+│   ├── item-form/      # Formulário de criação/edição
+│   ├── item-card/      # Card para exibir item
+│   └── item-dialog/    # Modal para visualizar detalhes
+├── services/           # Services para comunicação com API
+│   ├── item.service.ts     # CRUD operations
+│   └── notification.service.ts # Notificações
+├── models/             # Interfaces e modelos TypeScript
+│   └── item.model.ts
+├── shared/             # Componentes reutilizáveis
+│   └── components/
+│       ├── spinner/    # Loading spinner
+│       ├── modal/      # Modal genérico
+│       └── confirm-dialog/ # Diálogo de confirmação
+├── guards/            # Guards de rota
+└── interceptors/      # Interceptors HTTP
+```
+
+## Funcionalidades Implementadas
+- ✅ Listagem de itens com Material Design
+- ✅ Criação de itens com validação reativa
+- ✅ Edição de itens existentes
+- ✅ Exclusão com confirmação via dialog
+- ✅ Upload e recorte de imagens com ngx-image-cropper
+- ✅ Filtros de busca por título/descrição
+- ✅ Ordenação por diferentes campos
+- ✅ Paginação completa
+- ✅ Feedback visual com Material Snackbar
+- ✅ Documentação JSDoc completa
+- ✅ Tema purple personalizado do Material Design
+- ✅ Componentes genéricos reutilizáveis
+- ✅ Estados de carregamento com spinners
+- ✅ Tratamento de erros robusto
+- ✅ Design responsivo
+
+## Comandos Úteis
+```bash
+# Instalar dependências
+npm install
+
+# Iniciar aplicação Angular
+npm start
+
+# Iniciar JSON Server
+npm run json-server
+
+# Gerar documentação Compodoc
+npm run doc:build
+npm run doc:serve
+npm run doc:buildandserve
+
+# Gerar documentação JSDoc
+npm run jsdoc
+
+# Build produção
+npm run build
+
+# Executar testes
+npm test
+```
+
+## Recursos Angular 20 Utilizados
+- **Standalone Components**: Todos os componentes são independentes
+- **Signals**: Para gerenciamento de estado reativo
+- **Control Flow**: Uso de @if, @for nas templates
+- **Material Design System**: Tema personalizado purple
+- **Reactive Forms**: Validação em tempo real
+- **HTTP Client**: Comunicação com JSON Server
+- **Router**: Lazy loading de componentes
+- **Dependency Injection**: Injeção moderna com inject()
+
+## API Endpoints (JSON Server)
+```
+GET    /items          # Listar todos os itens
+GET    /items/:id      # Buscar item por ID
+POST   /items          # Criar novo item
+PUT    /items/:id      # Atualizar item
+DELETE /items/:id      # Excluir item
+
+# Filtros suportados:
+GET /items?q=search&_sort=field&_order=asc/desc&_page=1&_limit=10
+```
+
+## Estrutura de Dados
+```typescript
+interface Item {
+  id: number;
+  title: string;
+  description: string;
+  imageUrl: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+```
+
+## Componentes Genéricos Criados
+1. **SpinnerComponent**: Loading indicator customizável
+2. **ModalComponent**: Modal genérico com slots
+3. **ConfirmDialogComponent**: Diálogo de confirmação
+
+## Validações Implementadas
+- Título: obrigatório, mínimo 3 caracteres
+- Descrição: obrigatória, mínimo 10 caracteres
+- URL da Imagem: obrigatória, formato URL válido
+- Recorte de imagem: aspect ratio 4:3, dimensões mínimas
+
+## Estados de Carregamento
+- Loading global durante operações
+- Loading por item durante exclusão
+- Spinners customizados com mensagens
+- Desabilitar ações durante loading
+
+## Tratamento de Erros
+- Interceptação de erros HTTP
+- Notificações visuais para usuário
+- Fallback para imagens quebradas
+- Estados de erro com possibilidade de retry
+
+## Responsividade
+- Grid adaptativo para cards
+- Formulários responsivos
+- Menu mobile-friendly
+- Imagens otimizadas para diferentes telas
+
+## Documentação
+- JSDoc completo em todos os arquivos
+- Exemplos de uso nos comentários
+- Documentação técnica com Compodoc
+- README detalhado com instruções
+
+## Testes
+- Estrutura preparada para testes unitários
+- Componentes testáveis com dependency injection
+- Mocks para services
+
+## Performance
+- Lazy loading de componentes
+- OnPush change detection strategy onde aplicável
+- Debounce em filtros de busca
+- Paginação para grandes datasets
+
+## Acessibilidade
+- Labels adequados para formulários
+- ARIA attributes nos componentes
+- Navegação por teclado
+- Alto contraste no tema
+
+## Próximos Passos
+- Implementar autenticação
+- Adicionar mais filtros avançados
+- Cache inteligente de dados
+- PWA capabilities
+- Testes E2E com Cypress
