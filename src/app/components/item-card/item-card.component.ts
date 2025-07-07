@@ -108,7 +108,7 @@ export class ItemCardComponent {
       width: '800px',
       maxWidth: '95vw',
       data: this.item,
-      disableClose: true
+      disableClose: false // Permite fechar com ESC e clique fora
     });
 
     dialogRef.afterClosed().subscribe(result => {

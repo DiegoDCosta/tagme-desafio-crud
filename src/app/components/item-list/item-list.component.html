@@ -134,13 +134,5 @@
         </mat-paginator>
       }
 
-      <!-- Form Dialog -->
-      @if (showFormDialog()) {
-        <app-item-form
-          [item]="selectedItem()"
-          [isLoading]="isLoading()"
-          (save)="saveItem($event)"
-          (cancel)="closeFormDialog()">
-        </app-item-form>
-      }
+
     </div>

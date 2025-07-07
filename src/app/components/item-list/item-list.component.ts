@@ -71,10 +71,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
    */
   readonly items = signal<Item[]>([]);
 
-  /**
-   * Signal para item selecionado
-   */
-  readonly selectedItem = signal<Item | null>(null);
+
 
   /**
    * Signal para controle de loading
@@ -86,10 +83,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
    */
   readonly loadingItemId = signal<number | null>(null);
 
-  /**
-   * Signal para controle do diálogo de formulário
-   */
-  readonly showFormDialog = signal<boolean>(false);
+
 
   /**
    * Signal para total de itens
@@ -241,17 +235,21 @@ export class ItemListComponent implements OnInit, OnDestroy {
    * Abre o diálogo de criação
    */
   openCreateDialog(): void {
-    this.selectedItem.set(null);
-    this.showFormDialog.set(true);
+    const dialogRef = this.dialog.open(ItemFormComponent, {
+      width: '800px',
+      maxWidth: '95vw',
+      data: null, // null para criação
+      disableClose: false // Permite fechar com ESC e clique fora
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'saved') {
+        this.loadItems();
+      }
+    });
   }
 
-  /**
-   * Fecha o diálogo de formulário
-   */
-  closeFormDialog(): void {
-    this.showFormDialog.set(false);
-    this.selectedItem.set(null);
-  }
+
 
   /**
    * Visualiza um item
@@ -268,8 +266,18 @@ export class ItemListComponent implements OnInit, OnDestroy {
    * Edita um item
    */
   editItem(item: Item): void {
-    this.selectedItem.set(item);
-    this.showFormDialog.set(true);
+    const dialogRef = this.dialog.open(ItemFormComponent, {
+      width: '800px',
+      maxWidth: '95vw',
+      data: item,
+      disableClose: false // Permite fechar com ESC e clique fora
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'saved') {
+        this.loadItems();
+      }
+    });
   }
 
   /**
@@ -316,44 +324,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
       });
   }
 
-  /**
-   * Salva um item (criar ou atualizar)
-   */
-  saveItem(data: any): void {
-    this.isLoading.set(true);
-    
-    if (this.selectedItem()) {
-      // Atualizar item existente
-      this.itemService.updateItem(this.selectedItem()!.id, data)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe({
-          next: () => {
-            this.notificationService.success('Item atualizado com sucesso');
-            this.closeFormDialog();
-            this.loadItems();
-          },
-          error: (error) => {
-            this.notificationService.error('Erro ao atualizar item');
-            this.isLoading.set(false);
-          }
-        });
-    } else {
-      // Criar novo item
-      this.itemService.createItem(data)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe({
-          next: () => {
-            this.notificationService.success('Item criado com sucesso');
-            this.closeFormDialog();
-            this.loadItems();
-          },
-          error: (error) => {
-            this.notificationService.error('Erro ao criar item');
-            this.isLoading.set(false);
-          }
-        });
-    }
-  }
+
 
   /**
    * Manipula mudança de página
