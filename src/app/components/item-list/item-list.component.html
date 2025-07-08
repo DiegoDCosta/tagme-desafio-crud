@@ -9,6 +9,14 @@
         <span class="toolbar-spacer"></span>
         
         <button 
+          mat-icon-button 
+          class="theme-toggle-button mx-4"
+          (click)="toggleTheme()"
+          [title]="themeService.getCurrentTheme() ? 'Mudar para tema claro' : 'Mudar para tema escuro'">
+          <mat-icon>{{ themeService.getCurrentTheme() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+        
+        <button 
           mat-raised-button 
           color="accent"
           id="btn-create-item"

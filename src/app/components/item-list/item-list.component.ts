@@ -21,6 +21,7 @@ import { Subject, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs';
 
 import { ItemService } from '../../services/item.service';
 import { NotificationService } from '../../services/notification.service';
+import { ThemeService } from '../../services/theme.service';
 import { Item, ItemFilter, PaginationOptions } from '../../models/item.model';
 import { ItemCardComponent } from '../item-card/item-card.component';
 import { ItemFormComponent } from '../item-form/item-form.component';
@@ -62,6 +63,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
    */
   private readonly itemService = inject(ItemService);
   private readonly notificationService = inject(NotificationService);
+  public readonly themeService = inject(ThemeService);
   private readonly dialog = inject(MatDialog);
   private readonly fb = inject(FormBuilder);
 
@@ -228,6 +230,13 @@ export class ItemListComponent implements OnInit, OnDestroy {
           this.isLoading.set(false);
         }
       });
+  }
+
+  /**
+   * Alternar tema
+   */
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
   }
 
   /**

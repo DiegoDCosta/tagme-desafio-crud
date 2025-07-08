@@ -81,6 +81,10 @@
       display: flex;
       align-items: center;
       gap: 4px;
+
+      .mdc-button__label{
+        color: #666 !important;
+      }
     }
 
     .delete-action {
