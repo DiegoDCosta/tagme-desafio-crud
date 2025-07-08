@@ -125,21 +125,23 @@
 
       <!-- Items Grid -->
       @if (!isLoading() && items().length > 0) {
-        <div class="container-fluid">
-          <div class="row g-3">
-            @for (item of items(); track item.id) {
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <app-item-card
-                  [item]="item"
-                  [showActions]="true"
-                  [isLoading]="loadingItemId() === item.id"
-                  (view)="viewItem($event)"
-                  (edit)="editItem($event)"
-                  (delete)="deleteItem($event)"
-                  (itemSaved)="onItemSaved()">
-                </app-item-card>
-              </div>
-            }
+        <div class="main-content">
+          <div class="container-fluid">
+            <div class="row g-3">
+              @for (item of items(); track item.id) {
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                  <app-item-card
+                    [item]="item"
+                    [showActions]="true"
+                    [isLoading]="loadingItemId() === item.id"
+                    (view)="viewItem($event)"
+                    (edit)="editItem($event)"
+                    (delete)="deleteItem($event)"
+                    (itemSaved)="onItemSaved()">
+                  </app-item-card>
+                </div>
+              }
+            </div>
           </div>
         </div>
 

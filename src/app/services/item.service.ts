@@ -159,35 +159,57 @@ export class ItemService {
     filters: ItemFilter, 
     pagination: PaginationOptions
   ): Observable<PaginatedResponse<Item>> {
-    let params = new HttpParams();
-    
-    // Adiciona ordenação
-    if (filters.sortBy) {
-      params = params.set('_sort', filters.sortBy);
-      params = params.set('_order', filters.sortDirection || 'asc');
-    }
-    
-    // Primeiro, obtém o total de itens
+    // Obtém todos os itens e faz ordenação e paginação localmente
     return this.http.get<Item[]>(this.ITEMS_ENDPOINT).pipe(
-      switchMap((allItems: Item[]) => {
-        const totalItems = allItems.length;
+      map((allItems: Item[]) => {
+        let sortedItems = [...allItems];
         
-        // Agora faz a requisição paginada
+        // Aplica ordenação local
+        if (filters.sortBy) {
+          sortedItems.sort((a, b) => {
+            const aValue = a[filters.sortBy as keyof Item];
+            const bValue = b[filters.sortBy as keyof Item];
+            
+            // Tratamento especial para datas
+            if (filters.sortBy === 'createdAt' || filters.sortBy === 'updatedAt') {
+              const aDate = new Date(aValue as string).getTime();
+              const bDate = new Date(bValue as string).getTime();
+              
+              if (filters.sortDirection === 'desc') {
+                return bDate - aDate;
+              } else {
+                return aDate - bDate;
+              }
+            }
+            
+            // Ordenação para strings
+            if (typeof aValue === 'string' && typeof bValue === 'string') {
+              if (filters.sortDirection === 'desc') {
+                return bValue.localeCompare(aValue);
+              } else {
+                return aValue.localeCompare(bValue);
+              }
+            }
+            
+            return 0;
+          });
+        }
+        
+        // Aplica paginação local
+        const totalItems = sortedItems.length;
         const start = pagination.page * pagination.pageSize;
-        params = params.set('_start', start.toString());
-        params = params.set('_limit', pagination.pageSize.toString());
+        const end = start + pagination.pageSize;
+        const paginatedItems = sortedItems.slice(start, end);
         
-        return this.http.get<Item[]>(this.ITEMS_ENDPOINT, { params }).pipe(
-          map((items: Item[]) => ({
-            data: items,
-            pagination: {
-              ...pagination,
-              totalItems: totalItems,
-              totalPages: Math.ceil(totalItems / pagination.pageSize)
-            },
-            total: totalItems
-          }))
-        );
+        return {
+          data: paginatedItems,
+          pagination: {
+            ...pagination,
+            totalItems: totalItems,
+            totalPages: Math.ceil(totalItems / pagination.pageSize)
+          },
+          total: totalItems
+        };
       }),
       tap((response: PaginatedResponse<Item>) => {
         this.itemsSubject.next(response.data);
@@ -209,19 +231,44 @@ export class ItemService {
     filters: ItemFilter, 
     pagination: PaginationOptions
   ): Observable<PaginatedResponse<Item>> {
-    let params = new HttpParams();
-    
-    // Adiciona ordenação
-    if (filters.sortBy) {
-      params = params.set('_sort', filters.sortBy);
-      params = params.set('_order', filters.sortDirection || 'asc');
-    }
-    
-    return this.http.get<Item[]>(this.ITEMS_ENDPOINT, { params }).pipe(
+    return this.http.get<Item[]>(this.ITEMS_ENDPOINT).pipe(
       map(allItems => {
+        // Aplica ordenação local primeiro
+        let sortedItems = [...allItems];
+        
+        if (filters.sortBy) {
+          sortedItems.sort((a, b) => {
+            const aValue = a[filters.sortBy as keyof Item];
+            const bValue = b[filters.sortBy as keyof Item];
+            
+            // Tratamento especial para datas
+            if (filters.sortBy === 'createdAt' || filters.sortBy === 'updatedAt') {
+              const aDate = new Date(aValue as string).getTime();
+              const bDate = new Date(bValue as string).getTime();
+              
+              if (filters.sortDirection === 'desc') {
+                return bDate - aDate;
+              } else {
+                return aDate - bDate;
+              }
+            }
+            
+            // Ordenação para strings
+            if (typeof aValue === 'string' && typeof bValue === 'string') {
+              if (filters.sortDirection === 'desc') {
+                return bValue.localeCompare(aValue);
+              } else {
+                return aValue.localeCompare(bValue);
+              }
+            }
+            
+            return 0;
+          });
+        }
+        
         // Filtra localmente
         const searchTerm = filters.search!.toLowerCase().trim();
-        const filteredItems = allItems.filter(item => 
+        const filteredItems = sortedItems.filter(item => 
           item.title.toLowerCase().includes(searchTerm) ||
           item.description.toLowerCase().includes(searchTerm)
         );

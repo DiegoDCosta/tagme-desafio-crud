@@ -1,6 +1,9 @@
     .item-list-container {
       min-height: 100vh;
       background: var(--background-color);
+      display: flex;
+      flex-direction: column;
+      position: relative;
     }
 
     .main-toolbar {
@@ -70,15 +73,28 @@
     .container-fluid {
       padding: 24px;
       margin: 0 auto;
+      flex: 1;
+    }
+
+    // Conteúdo principal com espaço para paginação
+    .main-content {
+      flex: 1;
+      padding-bottom: 80px; // Altura da paginação + margem
+      overflow-y: auto;
     }
 
     .pagination {
       background: var(--surface-color);
       border-top: 1px solid var(--border-color);
-      position: sticky;
+      position: fixed;
       bottom: 0;
-      z-index: 10;
-      box-shadow: 0 -2px 4px rgba(0,0,0,0.08);
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+      width: 100%;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
     .filters-card{
       background-color: #424242 !important;
@@ -102,5 +118,9 @@
       
       .container-fluid {
         padding: 16px;
+      }
+
+      .main-content {
+        padding-bottom: 90px; // Mais espaço no mobile
       }
     }

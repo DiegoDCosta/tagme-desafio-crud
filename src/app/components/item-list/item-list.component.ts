@@ -116,7 +116,9 @@ export class ItemListComponent implements OnInit, OnDestroy {
    */
   readonly hasActiveFilters = computed(() => {
     const formValue = this.filtersForm?.value;
-    return formValue?.search || formValue?.sortBy || formValue?.sortDirection !== 'asc';
+    return formValue?.search || 
+           (formValue?.sortBy && formValue?.sortBy !== 'updatedAt') ||
+           (formValue?.sortDirection && formValue?.sortDirection !== 'desc');
   });
 
   /**
@@ -130,7 +132,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
   constructor() {
     this.filtersForm = this.fb.group({
       search: [''],
-      sortBy: ['createdAt'],
+      sortBy: ['updatedAt'],
       sortDirection: ['desc']
     });
   }
@@ -212,8 +214,8 @@ export class ItemListComponent implements OnInit, OnDestroy {
     const filters: ItemFilter = {
       // Só inclui busca se tiver 3+ caracteres ou estiver vazio
       search: (!searchValue || searchValue.length >= 3) ? searchValue : '',
-      sortBy: this.filtersForm.get('sortBy')?.value || 'title',
-      sortDirection: this.filtersForm.get('sortDirection')?.value || 'asc'
+      sortBy: this.filtersForm.get('sortBy')?.value || 'updatedAt',
+      sortDirection: this.filtersForm.get('sortDirection')?.value || 'desc'
     };
 
     this.itemService.getItemsWithFilters(filters, this.pagination())
@@ -352,8 +354,8 @@ export class ItemListComponent implements OnInit, OnDestroy {
   clearFilters(): void {
     this.filtersForm.reset({
       search: '',
-      sortBy: 'title',
-      sortDirection: 'asc'
+      sortBy: 'updatedAt',
+      sortDirection: 'desc'
     });
   }
 
