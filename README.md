@@ -12,6 +12,7 @@ Uma aplicação Angular 20 completa para gerenciamento de itens com operações 
 - ✅ **Filtros e Busca**: Por título, descrição e ordenação
 - ✅ **Paginação**: Navegação eficiente entre páginas
 - ✅ **Responsivo**: Design mobile-first
+- ✅ **Tema Claro/Escuro**: Sistema completo de alternância de temas
 - ✅ **Documentação**: JSDoc completa + Compodoc
 - ✅ **Componentes Reutilizáveis**: Spinner, Modal, Confirm Dialog
 - ✅ **Tratamento de Erros**: Feedback visual com snackbars
@@ -121,7 +122,8 @@ src/app/
 │   └── item-dialog/        # Modal detalhes do item
 ├── services/               # Services da aplicação
 │   ├── item.service.ts     # CRUD operations com API
-│   └── notification.service.ts # Sistema de notificações
+│   ├── notification.service.ts # Sistema de notificações
+│   └── theme.service.ts    # Gerenciamento de tema claro/escuro
 ├── models/                 # Interfaces TypeScript
 │   └── item.model.ts       # Modelos de dados
 ├── shared/                 # Componentes reutilizáveis
@@ -338,6 +340,27 @@ npm run build
 - ✅ **Integração com Serviços**: Modal chama diretamente os serviços de API
 - ✅ **ID Único**: Botão de editar mantém ID `btn-edit-inline-item-{id}` para automação
 
+### v1.2.0 - Sistema de Tema Claro/Escuro
+- ✅ **Alternância de Tema**: Implementado sistema completo de mudança entre tema claro e escuro
+- ✅ **Botão Toggle**: Ícone dinâmico no toolbar que muda entre sol/lua com tooltip explicativo
+- ✅ **Persistência**: Tema escolhido salvo no localStorage para próximas sessões
+- ✅ **Detecção Automática**: Respeita preferência do sistema operacional na primeira visita
+- ✅ **Transições Suaves**: Animações de 0.3s ease para mudanças de cores
+- ✅ **Cobertura Completa**: Todos os componentes adaptados (cards, modais, formulários, etc.)
+
+### v1.2.1 - Ordenação Padrão por Data
+- ✅ **Itens Mais Recentes**: Lista agora carrega ordenada por data de criação (mais recente primeiro)
+- ✅ **Melhoria UX**: Usuários veem imediatamente os itens mais recentes criados
+- ✅ **Configuração Padrão**: `sortBy: 'createdAt'` e `sortDirection: 'desc'`
+- ✅ **Flexibilidade**: Mantém opções de ordenação manual via filtros
+
+### v1.2.2 - Estilização Neutra Refinada
+- ✅ **Paleta Neutra**: Cores elegantes em tons de azul-acinzentado para ambos os temas
+- ✅ **Bordas Restauradas**: Inputs e elementos de formulário com bordas visíveis
+- ✅ **Estados Interativos**: Hover e focus states melhorados em todos os elementos
+- ✅ **Seletores Temáticos**: Itens selecionados em mat-select com fundo colorido e texto branco
+- ✅ **Modais Destacados**: Inputs nos modais com bordas vermelhas para maior visibilidade
+
 ## 📋 Próximos Passos
 
 - [ ] Autenticação e autorização
@@ -346,6 +369,8 @@ npm run build
 - [ ] Testes E2E com Cypress
 - [ ] Deploy automatizado
 - [ ] Internacionalização (i18n)
+- [ ] Mais variações de tema (azul, verde, etc.)
+- [ ] Animações avançadas entre temas
 
 ## 📄 Licença
 

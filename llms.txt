@@ -380,9 +380,81 @@ O arquivo `db.json` contém dados de exemplo atualizados:
 }
 ```
 
+## Sistema de Tema Claro/Escuro v1.2.0
+- ✅ **Tema Dinâmico**: Implementado sistema completo de alternância entre tema claro e escuro
+- ✅ **Serviço de Tema**: ThemeService com gerenciamento de estado usando BehaviorSubject
+- ✅ **Persistência**: Tema salvo no localStorage com detecção automática da preferência do sistema
+- ✅ **Botão Toggle**: Ícone dinâmico no toolbar (light_mode/dark_mode) com tooltip explicativo
+- ✅ **Variáveis CSS**: Paleta completa de cores para ambos os temas usando CSS custom properties
+- ✅ **Transições Suaves**: Animações de 0.3s ease para mudanças de cores
+- ✅ **Cobertura Completa**: Todos os componentes adaptados (cards, modais, formulários, etc.)
+
+### Funcionalidades do Sistema de Tema
+
+#### ThemeService
+- **Detecção Automática**: Verifica preferência do sistema na primeira visita
+- **Persistência**: Salva escolha no localStorage para próximas sessões
+- **Estado Reativo**: Observable para componentes reagirem a mudanças
+- **Métodos Públicos**: `toggleTheme()`, `setTheme()`, `getCurrentTheme()`
+
+#### Variáveis CSS do Tema Claro
+- **Cores Primárias**: `#546e7a` (azul-acinzentado neutro)
+- **Fundo**: `#fafafa` (cinza muito claro)
+- **Superfície**: `#ffffff` (branco)
+- **Texto**: `#212121` (quase preto) / `#757575` (cinza médio)
+- **Bordas**: `#e0e0e0` (cinza claro)
+
+#### Variáveis CSS do Tema Escuro
+- **Cores Primárias**: `#78909c` (azul-acinzentado mais claro)
+- **Fundo**: `#121212` (preto Material Design)
+- **Superfície**: `#1e1e1e` (cinza escuro)
+- **Texto**: `#ffffff` (branco) / `#b0b0b0` (cinza claro)
+- **Bordas**: `#333333` (cinza médio escuro)
+
+#### Integração com Componentes
+- **ItemListComponent**: Botão toggle integrado no toolbar
+- **Aplicação Global**: Classes aplicadas no body (`light-theme`/`dark-theme`)
+- **Todas as Variáveis**: Utilizadas em cards, modais, formulários e botões
+
+## Ordenação Padrão Atualizada v1.2.1
+- ✅ **Ordenação por Data**: Lista agora carrega ordenada por `createdAt` em ordem decrescente
+- ✅ **Itens Mais Recentes**: Novos itens aparecem no topo da lista automaticamente
+- ✅ **Melhoria UX**: Usuários veem primeiro os itens mais recentes criados
+- ✅ **Compatibilidade**: Mantém opções de ordenação manual pelos filtros
+
+### Detalhes Técnicos da Ordenação
+- **Campo Padrão**: `sortBy: ['createdAt']` (era `title`)
+- **Direção Padrão**: `sortDirection: ['desc']` (era `asc`)
+- **Funcionalidade**: Itens ordenados do mais recente ao mais antigo
+- **Flexibilidade**: Usuário pode alterar ordenação via select
+
+## Estilização Neutra Refinada v1.2.2
+- ✅ **Paleta Neutra**: Cores elegantes em tons de azul-acinzentado
+- ✅ **Bordas Visíveis**: Restauradas bordas em inputs e elementos de formulário
+- ✅ **Estados Interativos**: Hover e focus states melhorados
+- ✅ **Modais Destacados**: Inputs nos modais com bordas vermelhas para destaque
+- ✅ **Seletores Temáticos**: Itens selecionados em mat-select com fundo colorido e texto branco
+
+### Melhorias Visuais Aplicadas
+- **Form Fields**: Bordas de 1px com states de foco de 2px
+- **Inputs Básicos**: Estilização consistente para input, textarea, select
+- **Mat-Select**: Opções selecionadas com background primário e texto branco
+- **Modais**: Bordas vermelhas nos inputs para melhor visibilidade
+- **Transições**: Animações suaves de 0.3s em todos os elementos
+
+## Estrutura de Serviços Atualizada
+```
+src/app/services/
+├── item.service.ts           # CRUD operations
+├── notification.service.ts   # Notificações
+└── theme.service.ts         # Gerenciamento de tema (NOVO)
+```
+
 ## Próximos Passos
 - Implementar autenticação
 - Adicionar mais filtros avançados
 - Cache inteligente de dados
 - PWA capabilities
 - Testes E2E com Cypress
+- Animações avançadas entre temas
+- Suporte a mais variações de tema
