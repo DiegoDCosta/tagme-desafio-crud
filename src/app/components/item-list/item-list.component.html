@@ -20,50 +20,60 @@
       </mat-toolbar>
 
       <!-- Filtros -->
-      <div class="filters-section">
+      <div class="container-fluid">
         <mat-card class="filters-card">
           <mat-card-content>
-            <form [formGroup]="filtersForm" class="filters-form">
-              <mat-form-field appearance="outline" class="search-field">
-                <mat-label>Buscar</mat-label>
-                <input 
-                  matInput 
-                  formControlName="search"
-                  id="input-search"
-                  placeholder="Digite 3+ caracteres para buscar...">
-                <mat-icon matPrefix>search</mat-icon>
-                @if (searchValue().length > 0 && searchValue().length < 3) {
-                  <mat-hint class="search-hint">Digite mais {{ 3 - searchValue().length }} caractere(s)</mat-hint>
-                }
-              </mat-form-field>
+            <form [formGroup]="filtersForm">
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Buscar</mat-label>
+                    <input 
+                      matInput 
+                      formControlName="search"
+                      id="input-search"
+                      placeholder="Digite 3+ caracteres para buscar...">
+                    <mat-icon matPrefix>search</mat-icon>
+                    @if (searchValue().length > 0 && searchValue().length < 3) {
+                      <mat-hint class="search-hint">Digite mais {{ 3 - searchValue().length }} caractere(s)</mat-hint>
+                    }
+                  </mat-form-field>
+                </div>
 
-              <mat-form-field appearance="outline" class="sort-field">
-                <mat-label>Ordenar por</mat-label>
-                <mat-select formControlName="sortBy" id="select-sort-by">
-                  <mat-option value="title">Título</mat-option>
-                  <mat-option value="createdAt">Data de Criação</mat-option>
-                  <mat-option value="updatedAt">Última Atualização</mat-option>
-                </mat-select>
-              </mat-form-field>
+                <div class="col-12 col-sm-6 col-md-3">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Ordenar por</mat-label>
+                    <mat-select formControlName="sortBy" id="select-sort-by">
+                      <mat-option value="title">Título</mat-option>
+                      <mat-option value="createdAt">Data de Criação</mat-option>
+                      <mat-option value="updatedAt">Última Atualização</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
 
-              <mat-form-field appearance="outline" class="direction-field">
-                <mat-label>Direção</mat-label>
-                <mat-select formControlName="sortDirection" id="select-sort-direction">
-                  <mat-option value="asc">Crescente</mat-option>
-                  <mat-option value="desc">Decrescente</mat-option>
-                </mat-select>
-              </mat-form-field>
+                <div class="col-12 col-sm-6 col-md-3">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Direção</mat-label>
+                    <mat-select formControlName="sortDirection" id="select-sort-direction">
+                      <mat-option value="asc">Crescente</mat-option>
+                      <mat-option value="desc">Decrescente</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
 
-              <button 
-                type="button"
-                mat-button 
-                color="warn"
-                id="btn-clear-filters"
-                (click)="clearFilters()"
-                [disabled]="isLoading()">
-                <mat-icon>clear</mat-icon>
-                Limpar
-              </button>
+                <div class="col-12 d-flex justify-content-end">
+                  <button 
+                    type="button"
+                    mat-button 
+                    color="warn"
+                    id="btn-clear-filters"
+                    (click)="clearFilters()"
+                    [disabled]="isLoading()">
+                    <mat-icon>clear</mat-icon>
+                    Limpar
+                  </button>
+                </div>
+              </div>
             </form>
           </mat-card-content>
         </mat-card>
@@ -107,18 +117,22 @@
 
       <!-- Items Grid -->
       @if (!isLoading() && items().length > 0) {
-        <div class="items-grid">
-          @for (item of items(); track item.id) {
-            <app-item-card
-              [item]="item"
-              [showActions]="true"
-              [isLoading]="loadingItemId() === item.id"
-              (view)="viewItem($event)"
-              (edit)="editItem($event)"
-              (delete)="deleteItem($event)"
-              (itemSaved)="onItemSaved()">
-            </app-item-card>
-          }
+        <div class="container-fluid">
+          <div class="row g-3">
+            @for (item of items(); track item.id) {
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <app-item-card
+                  [item]="item"
+                  [showActions]="true"
+                  [isLoading]="loadingItemId() === item.id"
+                  (view)="viewItem($event)"
+                  (edit)="editItem($event)"
+                  (delete)="deleteItem($event)"
+                  (itemSaved)="onItemSaved()">
+                </app-item-card>
+              </div>
+            }
+          </div>
         </div>
 
         <!-- Pagination -->

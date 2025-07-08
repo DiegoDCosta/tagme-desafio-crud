@@ -1,0 +1,47 @@
+// Importar apenas as partes necessárias do Bootstrap 5 para o grid system
+
+// 1. Funções (necessárias para o grid)
+@import "bootstrap/scss/functions";
+
+// 2. Variáveis (personalizáveis)
+@import "bootstrap/scss/variables";
+
+// 3. Variáveis escuras (opcional)
+@import "bootstrap/scss/variables-dark";
+
+// 4. Maps (necessários para o grid)
+@import "bootstrap/scss/maps";
+
+// 5. Mixins (necessários para o grid)
+@import "bootstrap/scss/mixins";
+
+// 6. Root (variáveis CSS customizadas)
+@import "bootstrap/scss/root";
+
+// 7. Utilitários básicos
+@import "bootstrap/scss/utilities";
+
+// 8. Sistema de grid (o que queremos!)
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+
+// 9. Utilitários de spacing (margin, padding)
+@import "bootstrap/scss/utilities/api";
+
+// Personalização opcional das variáveis do grid
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+) !default;
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+) !default;
