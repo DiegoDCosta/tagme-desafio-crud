@@ -178,6 +178,7 @@ npm run build          # Verificar compilação
 2. **DevTools**: Angular DevTools para signals/estado
 3. **Network**: Verificar requisições para JSON Server
 4. **Build**: `npm run build` para validar TypeScript
+5. **Sass Warnings**: Warnings de @import são normais (não são erros)
 
 ### Para Novas Features
 1. **Seguir Padrões**: Standalone components + signals

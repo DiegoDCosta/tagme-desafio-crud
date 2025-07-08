@@ -8,6 +8,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:chrome": "ng test",
+    "test:firefox": "ng test --configuration=firefox",
+    "test:chromium": "ng test --configuration=chromium",
+    "test:coverage": "ng test --code-coverage --watch=false",
     "json-server": "json-server --watch db.json --port 3000",
     "doc:build": "compodoc -p tsconfig.json",
     "doc:serve": "compodoc -s",
@@ -54,8 +58,11 @@
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
+    "karma-detect-browsers": "^2.3.3",
+    "karma-firefox-launcher": "^2.1.3",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.2",
+    "zone.js": "^0.15.1"
   }
 }
