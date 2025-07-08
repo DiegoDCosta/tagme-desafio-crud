@@ -51,9 +51,8 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
     MatSnackBarModule,
     MatCardModule,
     ItemCardComponent,
-    ItemFormComponent,
     SpinnerComponent
-  ],
+],
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.scss']
 })
