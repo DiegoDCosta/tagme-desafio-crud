@@ -130,8 +130,8 @@ export class ItemListComponent implements OnInit, OnDestroy {
   constructor() {
     this.filtersForm = this.fb.group({
       search: [''],
-      sortBy: ['title'],
-      sortDirection: ['asc']
+      sortBy: ['createdAt'],
+      sortDirection: ['desc']
     });
   }
 

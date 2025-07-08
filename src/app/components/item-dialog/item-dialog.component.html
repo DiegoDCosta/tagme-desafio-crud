@@ -103,13 +103,13 @@
             <div class="stat-item">
               <mat-icon>text_fields</mat-icon>
               <span class="stat-value">{{ data.title.length }}</span>
-              <span class="stat-label">Chars no Título</span>
+              <span class="stat-label">Caracteres no Título</span>
             </div>
             
             <div class="stat-item">
               <mat-icon>article</mat-icon>
               <span class="stat-value">{{ data.description.length }}</span>
-              <span class="stat-label">Chars na Descrição</span>
+              <span class="stat-label">Caracteres na Descrição</span>
             </div>
             
             <div class="stat-item">
@@ -159,13 +159,6 @@
       Ver Imagem
     </button>
     
-    <button 
-      mat-raised-button 
-      color="primary"
-      [id]="'btn-edit-dialog-' + data.id"
-      (click)="editItem()">
-      <mat-icon>edit</mat-icon>
-      Editar
-    </button>
+    
   </div>
 </div>

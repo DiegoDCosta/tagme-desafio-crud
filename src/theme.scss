@@ -260,10 +260,9 @@ app-item-card .mat-mdc-card {
 }
 
 .mat-mdc-paginator {
-  background: var(--surface-color) !important;
+  background: #424242 !important;
   color: var(--text-primary) !important;
   border: 1px solid var(--border-color) !important;
-  border-radius: 8px !important;
   
   .mat-mdc-paginator-page-size-select {
     color: var(--text-primary) !important;
@@ -304,7 +303,6 @@ app-item-card .mat-mdc-card {
 }
 
 .mat-mdc-dialog-actions {
-  background: var(--surface-color) !important;
   border-top: 1px solid var(--border-color) !important;
 }
 
@@ -324,6 +322,21 @@ input, textarea, select {
   
   &:hover:not(:focus) {
     border-color: var(--text-secondary) !important;
+  }
+}
+.mat-mdc-dialog-actions{
+  &.dialog-actions{
+    .mat-icon{
+      color:#fff!important;
+    }
+  }
+}
+
+.mat-mdc-card-actions{
+  .mdc-button{
+    .mdc-button__label{
+      color: var(--primary-color) !important
+    }
   }
 }
 

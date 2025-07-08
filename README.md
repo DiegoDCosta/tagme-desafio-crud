@@ -140,8 +140,8 @@ src/app/
 ```typescript
 interface Item {
   id: number;
-  title: string;        // Obrigatório, min 3 chars
-  description: string;  // Obrigatório, min 10 chars
+  title: string;        // Obrigatório, min 3 Caracteres
+  description: string;  // Obrigatório, min 10 Caracteres
   imageUrl: string;     // Obrigatório, URL válida
   createdAt?: Date;
   updatedAt?: Date;
