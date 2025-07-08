@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+// Importar tema neutro personalizado
+@import 'theme';
+
 // Importar apenas o grid system do Bootstrap 5
 @import 'bootstrap-grid';
 
@@ -7,32 +10,8 @@ html, body {
   height: 100%; 
   margin: 0; 
   font-family: Roboto, "Helvetica Neue", sans-serif; 
-  background-color: #fafafa;
-}
-
-/* Customizações do tema purple */
-.mat-toolbar.mat-primary {
-  background: linear-gradient(135deg, #673ab7 0%, #9c27b0 100%);
-  color: white;
-}
-
-.mat-raised-button.mat-primary {
-  background: linear-gradient(135deg, #673ab7 0%, #9c27b0 100%);
-  border-radius: 8px;
-}
-
-.mat-raised-button.mat-accent {
-  background: linear-gradient(135deg, #e91e63 0%, #f06292 100%);
-  border-radius: 8px;
-}
-
-.mat-card {
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.mat-card:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--background-color);
+  color: var(--text-primary);
 }
 
 * {
@@ -43,6 +22,7 @@ html, body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 16px;
+  background-color: var(--background-color);
 }
 
 .flex-center {
@@ -75,7 +55,7 @@ html, body {
 }
 
 .error-message {
-  color: #f44336;
+  color: var(--neutral-warn);
   text-align: center;
   padding: 16px;
 }

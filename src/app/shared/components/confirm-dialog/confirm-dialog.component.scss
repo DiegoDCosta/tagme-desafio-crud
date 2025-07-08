@@ -1,6 +1,8 @@
 .confirm-dialog {
   min-width: 300px;
   max-width: 500px;
+  background: var(--surface-color);
+  color: var(--text-primary);
 }
 
 .dialog-header {
@@ -14,6 +16,7 @@
   margin: 0;
   font-size: 1.25rem;
   font-weight: 500;
+  color: var(--text-primary);
 }
 
 .dialog-actions {
@@ -24,19 +27,20 @@
 }
 
 .icon-primary {
-  color: #673ab7;
+  color: var(--primary-color);
 }
 
 .icon-accent {
-  color: #e91e63;
+  color: var(--accent-color);
 }
 
 .icon-warn {
-  color: #f44336;
+  color: var(--neutral-warn);
 }
 
 mat-icon {
   font-size: 24px;
   width: 24px;
   height: 24px;
+  color: var(--text-secondary);
 }
