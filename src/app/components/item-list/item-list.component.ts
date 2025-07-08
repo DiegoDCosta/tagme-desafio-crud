@@ -17,7 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Subject, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Subject, takeUntil, debounceTime, distinctUntilChanged, delay, of } from 'rxjs';
 
 import { ItemService } from '../../services/item.service';
 import { NotificationService } from '../../services/notification.service';
@@ -78,6 +78,11 @@ export class ItemListComponent implements OnInit, OnDestroy {
    * Signal para controle de loading
    */
   readonly isLoading = signal<boolean>(false);
+
+  /**
+   * Signal para controle de fade durante paginação
+   */
+  readonly isPaginationFading = signal<boolean>(false);
 
   /**
    * Signal para ID do item sendo processado
@@ -206,7 +211,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
    * Carrega a lista de itens
    * Só aplica filtro de busca se tiver 3+ caracteres
    */
-  private loadItems(): void {
+  private loadItems(isPagination: boolean = false): void {
     this.isLoading.set(true);
     
     const searchValue = this.filtersForm.get('search')?.value || '';
@@ -218,18 +223,25 @@ export class ItemListComponent implements OnInit, OnDestroy {
       sortDirection: this.filtersForm.get('sortDirection')?.value || 'desc'
     };
 
+    const minDelay = isPagination ? 1000 : 0; // 1 segundo para paginação, 0 para outros casos
+    
     this.itemService.getItemsWithFilters(filters, this.pagination())
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        delay(minDelay),
+        takeUntil(this.destroy$)
+      )
       .subscribe({
         next: (response) => {
           this.items.set(response.data);
           this.totalItems.set(response.total);
           this.pagination.set(response.pagination);
           this.isLoading.set(false);
+          this.isPaginationFading.set(false); // Remove o fade após carregar
         },
         error: (error) => {
           this.notificationService.error('Erro ao carregar itens');
           this.isLoading.set(false);
+          this.isPaginationFading.set(false); // Remove o fade em caso de erro
         }
       });
   }
@@ -340,12 +352,18 @@ export class ItemListComponent implements OnInit, OnDestroy {
    * Manipula mudança de página
    */
   onPageChange(event: PageEvent): void {
-    this.pagination.set({
-      ...this.pagination(),
-      page: event.pageIndex,
-      pageSize: event.pageSize
-    });
-    this.loadItems();
+    // Inicia o fade-out
+    this.isPaginationFading.set(true);
+    
+    // Pequeno delay para mostrar o fade-out
+    setTimeout(() => {
+      this.pagination.set({
+        ...this.pagination(),
+        page: event.pageIndex,
+        pageSize: event.pageSize
+      });
+      this.loadItems(true); // true indica que é uma paginação
+    }, 150);
   }
 
   /**

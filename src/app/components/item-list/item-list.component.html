@@ -127,7 +127,7 @@
       @if (!isLoading() && items().length > 0) {
         <div class="main-content">
           <div class="container-fluid">
-            <div class="row g-3">
+            <div class="row g-3" [class.fading]="isPaginationFading()">
               @for (item of items(); track item.id) {
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                   <app-item-card

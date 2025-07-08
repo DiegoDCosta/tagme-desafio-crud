@@ -74,6 +74,7 @@
       padding: 24px;
       margin: 0 auto;
       flex: 1;
+      transition: opacity 0.3s ease-in-out;
     }
 
     // Conteúdo principal com espaço para paginação
@@ -81,6 +82,16 @@
       flex: 1;
       padding-bottom: 80px; // Altura da paginação + margem
       overflow-y: auto;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    // Transição suave para os cards dos itens
+    .row {
+      transition: opacity 0.3s ease-in-out;
+      
+      &.fading {
+        opacity: 0.3;
+      }
     }
 
     .pagination {
