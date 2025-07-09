@@ -1,0 +1,137 @@
+    .item-list-container {
+      min-height: 100vh;
+      background: var(--background-color);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .main-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .toolbar-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .toolbar-spacer {
+      flex: 1;
+    }
+
+    .search-hint {
+      color: var(--accent-color);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .loading-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 400px;
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .empty-icon {
+      font-size: 64px;
+      width: 64px;
+      height: 64px;
+      margin-bottom: 16px;
+      color: var(--text-disabled);
+    }
+
+    .empty-state h2 {
+      margin: 16px 0 8px;
+      font-weight: 400;
+      color: var(--text-primary);
+    }
+
+    .empty-state p {
+      margin-bottom: 24px;
+      font-size: 16px;
+      max-width: 400px;
+      line-height: 1.5;
+    }
+
+    // Bootstrap grid handles responsiveness now
+    .container-fluid {
+      padding: 24px;
+      margin: 0 auto;
+      flex: 1;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    // Conteúdo principal com espaço para paginação
+    .main-content {
+      flex: 1;
+      padding-bottom: 80px; // Altura da paginação + margem
+      overflow-y: auto;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    // Transição suave para os cards dos itens
+    .row {
+      transition: opacity 0.3s ease-in-out;
+      
+      &.fading {
+        opacity: 0.3;
+      }
+    }
+
+    .pagination {
+      background: var(--surface-color);
+      border-top: 1px solid var(--border-color);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+      width: 100%;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .filters-card{
+      background-color: #424242 !important;
+      .mat-mdc-card-content{
+        color: #ffffff!important;
+      }
+      .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mat-mdc-notch-piece{
+        border-color: red!important;
+      }
+    }
+
+    // Minimal responsive adjustments - Bootstrap handles the rest
+    @media (max-width: 480px) {
+      .main-toolbar {
+        padding: 0 8px;
+      }
+
+      .toolbar-title span {
+        display: none;
+      }
+      
+      .container-fluid {
+        padding: 16px;
+      }
+
+      .main-content {
+        padding-bottom: 90px; // Mais espaço no mobile
+      }
+    }

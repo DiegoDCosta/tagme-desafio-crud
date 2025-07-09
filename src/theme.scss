@@ -1,0 +1,457 @@
+// Paleta de cores neutras e elegantes
+:root {
+  --primary-color: #546e7a;
+  --primary-light: #78909c;
+  --primary-dark: #37474f;
+  --accent-color: #607d8b;
+  --background-color: #fafafa;
+  --surface-color: #ffffff;
+  --text-primary: #212121;
+  --text-secondary: #757575;
+  --text-disabled: #bdbdbd;
+  --border-color: #e0e0e0;
+  --hover-color: #f5f5f5;
+  --neutral-warn: #f44336;
+}
+
+// Tema escuro
+body.dark-theme {
+  --primary-color: #78909c;
+  --primary-light: #a2c4c9;
+  --primary-dark: #546e7a;
+  --accent-color: #90a4ae;
+  --background-color: #121212;
+  --surface-color: #1e1e1e;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --text-disabled: #666666;
+  --border-color: #333333;
+  --hover-color: #2a2a2a;
+  --neutral-warn: #f44336;
+}
+
+// Tema claro (padrão)
+body.light-theme {
+  --primary-color: #546e7a;
+  --primary-light: #78909c;
+  --primary-dark: #37474f;
+  --accent-color: #607d8b;
+  --background-color: #fafafa;
+  --surface-color: #ffffff;
+  --text-primary: #212121;
+  --text-secondary: #757575;
+  --text-disabled: #bdbdbd;
+  --border-color: #e0e0e0;
+  --hover-color: #f5f5f5;
+  --neutral-warn: #f44336;
+}
+
+// Aplicar cor de fundo global
+body {
+  background-color: var(--background-color) !important;
+  color: var(--text-primary) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Customizações para tema neutro e elegante
+.mat-mdc-card {
+  background: var(--surface-color) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.12) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 12px !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transition: all 0.3s ease !important;
+  
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.08) !important;
+    border-color: var(--text-disabled) !important;
+    background: var(--hover-color) !important;
+  }
+}
+
+// Cards de item específicos com altura igual
+app-item-card .mat-mdc-card {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  
+  .mat-mdc-card-content {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  .mat-mdc-card-actions {
+    margin-top: auto !important;
+    padding-top: 16px !important;
+  }
+}
+
+.mat-mdc-card-header {
+  border-bottom: 1px solid var(--border-color) !important;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 16px !important;
+  color: var(--text-primary) !important;
+}
+
+.mat-mdc-card-content {
+  padding: 16px !important;
+  color: var(--text-secondary) !important;
+}
+
+.mat-mdc-card-title {
+  color: var(--text-primary) !important;
+  font-weight: 500 !important;
+}
+
+.mat-mdc-card-subtitle {
+  color: var(--text-secondary) !important;
+}
+
+.mat-toolbar {
+  background: var(--surface-color) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  transition: all 0.3s ease !important;
+}
+
+.mat-mdc-raised-button {
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  color: white !important;
+  transition: all 0.3s ease !important;
+  
+  &.mat-primary {
+    background: var(--primary-color) !important;
+    color: white !important;
+    
+    &:hover {
+      background: var(--primary-dark) !important;
+    }
+  }
+  
+  &.mat-accent {
+    background: var(--accent-color) !important;
+    color: white !important;
+    
+    &:hover {
+      background: var(--primary-dark) !important;
+    }
+  }
+  
+  &.mat-warn {
+    background: var(--neutral-warn) !important;
+    color: white !important;
+  }
+}
+
+// Botões de ação específicos com texto branco
+.mat-mdc-raised-button:not(.cancel-button) {
+  color: white !important;
+  
+  &.mat-primary {
+    background: var(--primary-color) !important;
+    color: white !important;
+  }
+  
+  &.mat-accent {
+    background: var(--accent-color) !important;
+    color: white !important;
+  }
+}
+
+.mat-mdc-button {
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  transition: all 0.3s ease !important;
+  
+  &.mat-primary {
+    color: var(--primary-color) !important;
+    
+    &:hover {
+      background: rgba(84, 110, 122, 0.04) !important;
+    }
+  }
+}
+
+.mat-mdc-form-field {
+  .mat-mdc-form-field-outline {
+    border-width: 1px !important;
+  }
+  
+  &.mat-focused .mat-mdc-form-field-outline {
+    color: var(--primary-color) !important;
+    border-width: 2px !important;
+  }
+  
+  &:hover:not(.mat-focused) .mat-mdc-form-field-outline {
+    color: var(--text-secondary) !important;
+  }
+  
+  .mat-mdc-form-field-label {
+    color: var(--text-secondary) !important;
+  }
+  
+  &.mat-focused .mat-mdc-form-field-label {
+    color: var(--primary-color) !important;
+  }
+  
+  .mat-mdc-input-element {
+    color: var(--text-primary) !important;
+  }
+  
+  // Aparência outline melhorada
+  &.mat-form-field-appearance-outline {
+    .mat-mdc-form-field-outline {
+      border-radius: 4px !important;
+      border-color: var(--border-color) !important;
+      border-width: 1px !important;
+    }
+    
+    &.mat-focused .mat-mdc-form-field-outline {
+      border-color: var(--primary-color) !important;
+      border-width: 2px !important;
+    }
+    
+    &:hover:not(.mat-focused) .mat-mdc-form-field-outline {
+      border-color: var(--text-secondary) !important;
+    }
+  }
+}
+
+.mat-mdc-select-panel {
+  background: var(--surface-color) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+.mat-mdc-select-value {
+  color: var(--text-primary) !important;
+}
+
+.mat-mdc-select-arrow {
+  color: var(--text-secondary) !important;
+}
+
+.mat-mdc-option {
+  color: var(--text-primary) !important;
+  
+  &:hover {
+    background: var(--hover-color) !important;
+  }
+  
+  &.mat-mdc-option-active {
+    background: var(--primary-color) !important;
+    color: white !important;
+  }
+  
+  &.mat-mdc-option-selected {
+    background: var(--primary-color) !important;
+    color: white !important;
+  }
+}
+
+.mat-mdc-paginator {
+  background: #424242 !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  
+  .mat-mdc-paginator-page-size-select {
+    color: var(--text-primary) !important;
+  }
+  
+  .mat-mdc-paginator-range-label {
+    color: var(--text-secondary) !important;
+    font-weight: 500 !important;
+  }
+  
+  .mat-mdc-icon-button {
+    color: var(--primary-color) !important;
+    
+    &:disabled {
+      color: var(--text-disabled) !important;
+    }
+    
+    &:hover:not(:disabled) {
+      background: rgba(84, 110, 122, 0.04) !important;
+    }
+  }
+}
+
+.mat-mdc-dialog-container {
+  background: var(--surface-color) !important;
+  color: var(--text-primary) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+}
+
+.mat-mdc-dialog-title {
+  color: var(--text-primary) !important;
+  font-weight: 500 !important;
+}
+
+.mat-mdc-dialog-content {
+  color: var(--text-secondary) !important;
+}
+
+.mat-mdc-dialog-actions {
+  border-top: 1px solid var(--border-color) !important;
+}
+
+// Inputs básicos e textareas
+input, textarea, select {
+  border: 1px solid var(--border-color) !important;
+  border-radius: 4px !important;
+  color: var(--text-primary) !important;
+  transition: all 0.3s ease !important;
+  
+  &:focus {
+    border-color: var(--primary-color) !important;
+    border-width: 2px !important;
+    outline: none !important;
+    box-shadow: 0 0 0 1px rgba(84, 110, 122, 0.1) !important;
+  }
+  
+  &:hover:not(:focus) {
+    border-color: var(--text-secondary) !important;
+  }
+}
+.mat-mdc-dialog-actions{
+  &.dialog-actions{
+    .mat-icon{
+      color:#fff!important;
+    }
+  }
+}
+
+.mat-mdc-card-actions{
+  .mdc-button{
+    .mdc-button__label{
+      color: var(--primary-color) !important
+    }
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  background: var(--primary-dark) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+}
+
+.mat-mdc-icon-button {
+  color: var(--text-secondary) !important;
+  transition: all 0.3s ease !important;
+  
+  &:hover {
+    background: rgba(0,0,0,0.04) !important;
+  }
+}
+
+// Botão de toggle de tema
+.theme-toggle-button {
+  color: var(--text-primary) !important;
+  
+  &:hover {
+    background: var(--hover-color) !important;
+  }
+}
+
+.mat-mdc-chip {
+  background: var(--hover-color) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 16px !important;
+}
+
+// Ícones com cor neutra
+.mat-icon {
+  color: var(--text-secondary) !important;
+}
+
+// Melhorar legibilidade de textos
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary) !important;
+}
+
+p, span, div {
+  color: var(--text-secondary) !important;
+}
+
+// Estados de hover mais sutis
+.mat-mdc-card:hover .mat-icon {
+  color: var(--primary-color) !important;
+}
+
+.mat-mdc-card:hover .mat-mdc-card-title {
+  color: var(--primary-color) !important;
+}
+
+// Melhorar contraste nos inputs
+.mat-mdc-form-field-input-control input {
+  color: var(--text-primary) !important;
+}
+
+// Toolbar com melhor contraste
+.mat-toolbar .mat-icon {
+  color: var(--text-primary) !important;
+}
+
+// Botões do filtro com melhor visibilidade
+.mat-mdc-button.mat-warn {
+  color: var(--neutral-warn) !important;
+}
+
+// Botões de cancelar mantêm estilo padrão
+.mat-mdc-button.cancel-button,
+.mat-mdc-raised-button.cancel-button {
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  
+  &:hover {
+    background: var(--hover-color) !important;
+    color: var(--text-primary) !important;
+  }
+}
+
+// Melhorar contraste de textos em todos os modais
+.mat-mdc-dialog-container {
+  * {
+    color: var(--text-secondary) !important;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary) !important;
+  }
+  
+  .mat-mdc-card-title {
+    color: var(--text-primary) !important;
+  }
+  
+  .mat-mdc-card-subtitle {
+    color: var(--text-secondary) !important;
+  }
+  
+  strong, b {
+    color: var(--text-primary) !important;
+  }
+  
+  .mat-mdc-button {
+    color: var(--primary-color) !important;
+  }
+  
+  .mat-mdc-raised-button {
+    color: white !important;
+  }
+}
+
+.mdc-button__label{
+  color: white !important;
+}

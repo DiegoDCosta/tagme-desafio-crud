@@ -1,0 +1,37 @@
+@if (isOpen) {
+  <div class="modal-overlay" (click)="onOverlayClick()">
+    <div 
+      class="modal-container"
+      [ngClass]="'modal-' + size"
+      (click)="$event.stopPropagation()">
+      
+      <div class="modal-header">
+        @if (title) {
+          <h2 class="modal-title">{{ title }}</h2>
+        }
+        
+        @if (showCloseButton) {
+          <button 
+            mat-icon-button 
+            class="close-button"
+            id="btn-modal-close"
+            (click)="onClose()"
+            type="button"
+            aria-label="Fechar modal">
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+      </div>
+      
+      <div class="modal-body">
+        <ng-content></ng-content>
+      </div>
+      
+      @if (showFooter) {
+        <div class="modal-footer">
+          <ng-content select="[slot=footer]"></ng-content>
+        </div>
+      }
+    </div>
+  </div>
+}

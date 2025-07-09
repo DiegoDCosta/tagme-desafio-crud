@@ -1,0 +1,46 @@
+.confirm-dialog {
+  min-width: 300px;
+  max-width: 500px;
+  background: var(--surface-color);
+  color: var(--text-primary);
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.dialog-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.icon-primary {
+  color: var(--primary-color);
+}
+
+.icon-accent {
+  color: var(--accent-color);
+}
+
+.icon-warn {
+  color: var(--neutral-warn);
+}
+
+mat-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  color: var(--text-secondary);
+}

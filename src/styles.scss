@@ -1,1 +1,61 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Importar tema neutro personalizado
+@import 'theme';
+
+// Importar apenas o grid system do Bootstrap 5
+@import 'bootstrap-grid';
+
+html, body { 
+  height: 100%; 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  background-color: var(--background-color);
+  color: var(--text-primary);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+  background-color: var(--background-color);
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.margin-top {
+  margin-top: 16px;
+}
+
+.margin-bottom {
+  margin-bottom: 16px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.loading-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.error-message {
+  color: var(--neutral-warn);
+  text-align: center;
+  padding: 16px;
+}

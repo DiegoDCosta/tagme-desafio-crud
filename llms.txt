@@ -1,0 +1,157 @@
+src/app/
+src/app/services/
+
+# TagMe Desafio - Guia para LLMs e Desenvolvedores
+
+## Visão Geral
+Aplicação Angular 20 standalone para gerenciamento de itens com operações CRUD, temas dinâmicos, busca inteligente, paginação fixa e responsiva, upload de imagens e testes unitários alinhados ao comportamento real dos serviços e componentes.
+
+## Tecnologias Utilizadas
+- Angular 20 (Standalone Components)
+- Angular Material (tema customizado)
+- TypeScript (tipagem rigorosa)
+- RxJS e Signals (estado reativo)
+- JSON Server (API simulada)
+- Jasmine/Karma (testes unitários)
+- SCSS (estilização avançada)
+- ngx-image-cropper (upload/recorte de imagens)
+
+## Estrutura do Projeto
+```
+src/app/
+├── components/
+│   ├── item-list/         # Lista principal com filtros e paginação
+│   ├── item-card/         # Card de exibição e ações do item
+│   ├── item-form/         # Formulário de criação/edição
+│   └── item-dialog/       # Modal de visualização
+├── services/
+│   ├── item.service.ts    # CRUD de itens
+│   ├── notification.service.ts # Notificações
+│   ├── theme.service.ts   # Temas claro/escuro
+│   └── paginator-intl.service.ts # Tradução da paginação
+├── models/
+│   └── item.model.ts      # Interface Item
+├── shared/components/
+│   ├── spinner/           # Indicadores de loading
+│   ├── modal/             # Modal genérico
+│   └── confirm-dialog/    # Diálogo de confirmação
+└── assets/                # Recursos estáticos
+```
+
+## Funcionalidades
+- CRUD completo de itens (criar, visualizar, editar, deletar)
+- Busca inteligente (debounce, mínimo 3 caracteres)
+- Paginação fixa e traduzida (MatPaginator customizado)
+- Temas dinâmicos claro/escuro com persistência
+- Upload e recorte de imagens
+- Design responsivo e acessível
+- Testes unitários alinhados ao comportamento real
+- Feedback visual (snackbar, loading, erros)
+- Ordenação local por data de atualização
+
+## Testes Unitários
+- Cobertura dos principais serviços e componentes (ItemService, NotificationService, ItemCardComponent, ItemFormComponent)
+- Mocks e asserts alinhados ao comportamento real dos serviços (tipos, eventos, dependências)
+- Uso de HttpClientTestingModule e spies para isolamento
+- Testes de emissão de eventos, integração de CRUD e tratamento de erros
+- Scripts npm para rodar testes e coverage
+
+### Estrutura dos Testes
+```
+src/app/services/item.service.spec.ts         # Testes CRUD do serviço
+src/app/services/notification.service.spec.ts # Testes de notificações
+src/app/components/item-card/item-card.component.spec.ts # Testes do card
+src/app/components/item-form/item-form.component.spec.ts # Testes do form
+```
+
+## API e Dados
+- Endpoints REST simulados via JSON Server:
+  - GET    /items
+  - GET    /items/:id
+  - POST   /items
+  - PUT    /items/:id
+  - DELETE /items/:id
+- Filtros: ?q=search&_sort=field&_order=desc&_page=1&_limit=10
+- Estrutura do item:
+```typescript
+interface Item {
+  id: number;
+  title: string;        // Obrigatório, min 3 chars
+  description: string;  // Obrigatório, min 10 chars
+  imageUrl: string;     // Obrigatório, URL válida
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+```
+- db.json: dados de exemplo ordenados por updatedAt
+
+## Convenções e Padrões
+- Standalone Components e Signals
+- Tipagem TypeScript strict
+- Separação de responsabilidades (componentes, serviços, modelos)
+- JSDoc em métodos públicos
+- IDs únicos para automação e acessibilidade
+- Testes focados em operações essenciais e casos reais
+
+## Scripts e Comandos Úteis
+```bash
+# Instalar dependências
+npm install
+
+# Rodar Angular e JSON Server juntos
+npm run start:dev
+
+# Rodar apenas Angular
+npm start
+
+# Rodar apenas API
+npm run json-server
+
+# Rodar testes unitários
+npm test
+
+# Gerar cobertura de testes
+npm run test:coverage:chromium
+
+# Build de produção
+npm run build
+
+# Gerar documentação
+npm run doc:build
+npm run doc:serve
+npm run jsdoc
+```
+
+## Temas e Personalização
+- Tema claro/escuro alternável (localStorage, detecção automática)
+- Variáveis CSS customizadas em `src/styles.scss`
+- Transições suaves (0.3s)
+- Paleta neutra azul-acinzentada
+
+## Performance e UX
+- Lazy loading de componentes
+- Debounce em buscas
+- Paginação para grandes listas
+- Feedback visual e loading global/local
+
+## Acessibilidade
+- Labels e ARIA nos formulários
+- Navegação por teclado
+- Alto contraste nos temas
+
+## Documentação e Recursos
+- README.md: instruções gerais
+- TESTS.md: guia de testes
+- AGENT.md: guia para IA/assistentes
+- Compodoc: documentação técnica (npm run doc:serve)
+- JSDoc: documentação de código
+
+## Próximos Passos e Roadmap
+- Autenticação e autorização
+- Testes E2E com Cypress
+- PWA e cache inteligente
+- Filtros avançados e export/import de dados
+- Internacionalização (i18n)
+
+---
+Este arquivo serve como referência rápida e confiável para LLMs, desenvolvedores e assistentes que desejam entender, testar, manter ou expandir o projeto TagMe Desafio.
