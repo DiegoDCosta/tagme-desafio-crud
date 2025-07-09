@@ -12,6 +12,7 @@
     "test:firefox": "ng test --configuration=firefox",
     "test:chromium": "ng test --configuration=chromium",
     "test:coverage": "ng test --code-coverage --watch=false",
+    "test:coverage:chromium": "ng test --code-coverage --browsers=Chromium --watch=false",
     "json-server": "json-server --watch db.json --port 3000",
     "doc:build": "compodoc -p tsconfig.json",
     "doc:serve": "compodoc -s",
