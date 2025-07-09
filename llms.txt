@@ -1,691 +1,157 @@
-# Angular 20 CRUD Item Manager - TagMe Desafio
+src/app/
+src/app/services/
+
+# TagMe Desafio - Guia para LLMs e Desenvolvedores
 
 ## Visão Geral
-Aplicação Angular 20 completa para gerenciamento de itens com operações CRUD, temas dinâmicos, busca inteligente, paginação suavizada e 88 testes unitários implementados.
+Aplicação Angular 20 standalone para gerenciamento de itens com operações CRUD, temas dinâmicos, busca inteligente, paginação fixa e responsiva, upload de imagens e testes unitários alinhados ao comportamento real dos serviços e componentes.
 
 ## Tecnologias Utilizadas
-- Angular 20 com Standalone Components
-- Angular Material Design com tema purple-green + customizações purple
-- RxJS e Signals para gerenciamento de estado
-- JSON Server para API simulada
-- TypeScript com JSDoc para documentação
-- ngx-image-cropper para recorte de imagens
-- Compodoc para documentação técnica
-- Gradientes e estilos CSS3 personalizados
+- Angular 20 (Standalone Components)
+- Angular Material (tema customizado)
+- TypeScript (tipagem rigorosa)
+- RxJS e Signals (estado reativo)
+- JSON Server (API simulada)
+- Jasmine/Karma (testes unitários)
+- SCSS (estilização avançada)
+- ngx-image-cropper (upload/recorte de imagens)
 
 ## Estrutura do Projeto
 ```
 src/app/
-├── components/          # Componentes principais da aplicação
-│   ├── item-list/      # Lista de itens com filtros e paginação
-│   ├── item-form/      # Formulário de criação/edição
-│   ├── item-card/      # Card para exibir item
-│   └── item-dialog/    # Modal para visualizar detalhes
-├── services/           # Services para comunicação com API
-│   ├── item.service.ts     # CRUD operations
-│   └── notification.service.ts # Notificações
-├── models/             # Interfaces e modelos TypeScript
-│   └── item.model.ts
-├── shared/             # Componentes reutilizáveis
-│   └── components/
-│       ├── spinner/    # Loading spinner
-│       ├── modal/      # Modal genérico
-│       └── confirm-dialog/ # Diálogo de confirmação
-├── guards/            # Guards de rota
-└── interceptors/      # Interceptors HTTP
+├── components/
+│   ├── item-list/         # Lista principal com filtros e paginação
+│   ├── item-card/         # Card de exibição e ações do item
+│   ├── item-form/         # Formulário de criação/edição
+│   └── item-dialog/       # Modal de visualização
+├── services/
+│   ├── item.service.ts    # CRUD de itens
+│   ├── notification.service.ts # Notificações
+│   ├── theme.service.ts   # Temas claro/escuro
+│   └── paginator-intl.service.ts # Tradução da paginação
+├── models/
+│   └── item.model.ts      # Interface Item
+├── shared/components/
+│   ├── spinner/           # Indicadores de loading
+│   ├── modal/             # Modal genérico
+│   └── confirm-dialog/    # Diálogo de confirmação
+└── assets/                # Recursos estáticos
 ```
 
-## Funcionalidades Implementadas
-- ✅ Listagem de itens com Material Design
-- ✅ Criação de itens com validação reativa
-- ✅ Edição de itens existentes
-- ✅ Exclusão com confirmação via dialog
-- ✅ Upload e recorte de imagens com ngx-image-cropper
-- ✅ Filtros de busca por título/descrição
-- ✅ Ordenação por diferentes campos
-- ✅ Paginação completa
-- ✅ Feedback visual com Material Snackbar
-- ✅ Documentação JSDoc completa
-- ✅ Tema purple-green com customizações purple (gradientes)
-- ✅ Componentes genéricos reutilizáveis
-- ✅ Estados de carregamento com spinners
-- ✅ Tratamento de erros robusto
-- ✅ Design responsivo com cards arredondados
+## Funcionalidades
+- CRUD completo de itens (criar, visualizar, editar, deletar)
+- Busca inteligente (debounce, mínimo 3 caracteres)
+- Paginação fixa e traduzida (MatPaginator customizado)
+- Temas dinâmicos claro/escuro com persistência
+- Upload e recorte de imagens
+- Design responsivo e acessível
+- Testes unitários alinhados ao comportamento real
+- Feedback visual (snackbar, loading, erros)
+- Ordenação local por data de atualização
 
-## Melhorias Visuais v1.1.2
-- ✅ **Paginator Estilizado**: Gradiente purple com navegação aprimorada
-- ✅ **Cards Premium**: Gradientes sutis e bordas purple suaves
-- ✅ **Micro-Interações**: Hover effects com transform e scaling
-- ✅ **Consistência Visual**: Todas as cores seguem paleta purple
-- ✅ **Transições Suaves**: cubic-bezier para animações naturais
-- ✅ **Contraste Otimizado**: Cores testadas para acessibilidade
-- ✅ **Elementos Temáticos**: Spinners, forms e notificações consistentes
+## Testes Unitários
+- Cobertura dos principais serviços e componentes (ItemService, NotificationService, ItemCardComponent, ItemFormComponent)
+- Mocks e asserts alinhados ao comportamento real dos serviços (tipos, eventos, dependências)
+- Uso de HttpClientTestingModule e spies para isolamento
+- Testes de emissão de eventos, integração de CRUD e tratamento de erros
+- Scripts npm para rodar testes e coverage
 
-## Busca Inteligente v1.1.3
-- ✅ **Debounce Otimizado**: 500ms de delay para performance
-- ✅ **Filtro por Caracteres**: Busca executa apenas com 3+ caracteres
-- ✅ **Busca Local**: Filtro em título e descrição no cliente
-- ✅ **Feedback Visual**: Hint mostra quantos caracteres faltam
-- ✅ **UX Intuitiva**: Placeholder explicativo e estados claros
-- ✅ **Performance**: Evita requests desnecessários ao servidor
-- ✅ **Separação de Concerns**: Busca e ordenação tratadas separadamente
-
-## IDs Únicos para Automação v1.1.5
-- ✅ **Elementos Clicáveis Identificados**: Todos os botões, inputs e elementos clicáveis possuem IDs únicos
-- ✅ **Padrão de Nomenclatura**: IDs seguem padrão consistente (btn-, input-, select-, etc.)
-- ✅ **IDs Dinâmicos**: Para listas, IDs incluem o ID do item (ex: btn-edit-item-1)
-- ✅ **Componentes Reutilizáveis**: IDs em modais, confirmações e spinners
-- ✅ **Facilita Testes E2E**: Cypress, Selenium e outros podem localizar elementos facilmente
-- ✅ **Acessibilidade**: Melhora navegação por teclado e tecnologias assistivas
-
-### Lista Completa de IDs Implementados
-
-#### ItemListComponent
-- `btn-create-item` - Botão principal "Novo Item"
-- `input-search` - Campo de busca
-- `select-sort-by` - Select para ordenação
-- `select-sort-direction` - Select para direção da ordenação
-- `btn-clear-filters` - Botão limpar filtros
-- `btn-clear-filters-empty` - Botão limpar filtros no estado vazio
-- `btn-create-first-item` - Botão criar primeiro item
-- `paginator-items` - Paginador de itens
-
-#### ItemCardComponent (IDs dinâmicos por item)
-- `btn-menu-item-{id}` - Botão menu de ações
-- `btn-view-item-{id}` - Visualizar item (menu)
-- `btn-edit-item-{id}` - Editar item (menu)
-- `btn-delete-item-{id}` - Excluir item (menu)
-- `img-container-item-{id}` - Container da imagem
-- `img-item-{id}` - Imagem do item
-- `btn-view-details-item-{id}` - Ver detalhes (botões inline)
-- `btn-edit-inline-item-{id}` - Editar (botões inline)
-
-#### ItemFormComponent
-- `input-title` - Campo título
-- `textarea-description` - Campo descrição
-- `input-image-url` - Campo URL da imagem
-- `input-file-upload` - Input de upload de arquivo
-- `btn-select-image` - Botão selecionar imagem
-- `btn-clear-image` - Botão limpar imagem
-- `btn-cancel-form` - Botão cancelar formulário
-- `btn-save-form` - Botão salvar formulário
-
-#### ItemDialogComponent (IDs dinâmicos por item)
-- `btn-close-dialog` - Botão fechar no header
-- `img-dialog-item-{id}` - Imagem no diálogo
-- `link-image-url-{id}` - Link para URL da imagem
-- `btn-close-dialog-footer` - Botão fechar no footer
-- `btn-view-image-{id}` - Botão ver imagem
-- `btn-edit-dialog-{id}` - Botão editar no diálogo
-
-#### Componentes Compartilhados
-- `btn-confirm-cancel` - Botão cancelar (ConfirmDialog)
-- `btn-confirm-action` - Botão confirmar (ConfirmDialog)
-- `modal-overlay` - Overlay do modal
-- `modal-container` - Container do modal
-- `btn-modal-close` - Botão fechar modal
-
-## Separação de Templates e Estilos v1.1.6
-- ✅ **Refatoração Completa**: Todos os templates e estilos inline foram movidos para arquivos externos
-- ✅ **Estrutura Organizada**: Cada componente agora tem 3 arquivos (.ts, .html, .scss)
-- ✅ **Melhores Práticas**: Segue o Angular Style Guide e convenções da comunidade
-- ✅ **Facilita Desenvolvimento**: Melhor experiência no VS Code com syntax highlighting
-- ✅ **Separação de Responsabilidades**: Lógica, estrutura e estilo em arquivos separados
-- ✅ **Manutenibilidade**: Edição e debugging mais simples e organizada
-
-### Estrutura de Arquivos Atual
-
-#### Componentes Principais
+### Estrutura dos Testes
 ```
-src/app/components/
-├── item-list/
-│   ├── item-list.component.ts
-│   ├── item-list.component.html
-│   └── item-list.component.scss
-├── item-card/
-│   ├── item-card.component.ts
-│   ├── item-card.component.html
-│   └── item-card.component.scss
-├── item-form/
-│   ├── item-form.component.ts
-│   ├── item-form.component.html
-│   └── item-form.component.scss
-└── item-dialog/
-    ├── item-dialog.component.ts
-    ├── item-dialog.component.html
-    └── item-dialog.component.scss
+src/app/services/item.service.spec.ts         # Testes CRUD do serviço
+src/app/services/notification.service.spec.ts # Testes de notificações
+src/app/components/item-card/item-card.component.spec.ts # Testes do card
+src/app/components/item-form/item-form.component.spec.ts # Testes do form
 ```
 
-#### Componentes Compartilhados
-```
-src/app/shared/components/
-├── confirm-dialog/
-│   ├── confirm-dialog.component.ts
-│   ├── confirm-dialog.component.html
-│   └── confirm-dialog.component.scss
-├── modal/
-│   ├── modal.component.ts
-│   ├── modal.component.html
-│   └── modal.component.scss
-└── spinner/
-    ├── spinner.component.ts
-    ├── spinner.component.html
-    └── spinner.component.scss
-```
-
-## Modal de Edição de Itens v1.1.7
-- ✅ **Edição em Modal**: Implementado modal para editar itens diretamente dos cards
-- ✅ **Formulário Híbrido**: ItemFormComponent funciona como página e modal
-- ✅ **Detecção Automática**: Detecta se está sendo usado como modal ou página
-- ✅ **Integração Completa**: Modal chama serviços e notificações diretamente
-- ✅ **UX Otimizada**: Edição rápida sem perder contexto da lista
-- ✅ **Atualização Dinâmica**: Lista recarrega automaticamente após edição
-- ✅ **Compatibilidade**: Mantém funcionamento original para criação de itens
-
-### Funcionamento Técnico
-
-#### ItemCardComponent
-- Injeta MatDialog para abrir modais
-- Método onEdit() abre ItemFormComponent como modal
-- Emite evento itemSaved quando item é salvo
-- Passa dados do item para o modal
-
-#### ItemFormComponent Híbrido
-- Detecta se está sendo usado como modal via dialogRef
-- Template condicional: versão modal ou card
-- Chama serviços diretamente quando em modo modal
-- Retorna resultado 'saved' para o componente pai
-
-#### Fluxo de Edição
-1. Usuário clica em "Editar" no card
-2. Modal abre com dados do item preenchidos
-3. Usuário modifica e salva
-4. Service atualiza item na API
-5. Modal fecha retornando 'saved'
-6. Lista recarrega automaticamente
-
-## Comandos Úteis
-```bash
-# Instalar dependências
-npm install
-
-# Iniciar aplicação Angular
-npm start
-
-# Iniciar JSON Server
-npm run json-server
-
-# Comando de desenvolvimento completo (Angular + JSON Server)
-npm run start:dev
-
-# Gerar documentação Compodoc
-npm run doc:build
-npm run doc:serve
-npm run doc:buildandserve
-
-# Gerar documentação JSDoc
-npm run jsdoc
-
-# Build produção
-npm run build
-
-# Executar testes
-npm test
-```
-
-## Recursos Angular 20 Utilizados
-- **Standalone Components**: Todos os componentes são independentes
-- **Signals**: Para gerenciamento de estado reativo
-- **Control Flow**: Uso de @if, @for nos templates
-- **Material Design System**: Tema purple-green + customizações CSS
-- **Reactive Forms**: Validação em tempo real
-- **HTTP Client**: Comunicação com JSON Server
-- **Router**: Lazy loading de componentes
-- **Dependency Injection**: Injeção moderna com inject()
-
-## Customizações de Tema
-- **Tema Base**: purple-green.css (Material Design)
-- **Gradientes Personalizados**: 
-  - Toolbar e botões: linear-gradient(135deg, #673ab7 0%, #9c27b0 100%)
-  - Cards: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%)
-  - Paginator: gradiente purple com texto branco
-  - Background: gradiente sutil no body
-- **Bordas Arredondadas**: Cards e elementos com border-radius 12px
-- **Sombras Temáticas**: Box-shadows com cores purple rgba(103, 58, 183, 0.08)
-- **Hover Effects**: Transform translateY(-2px) e sombras expandidas
-- **Form Fields**: Estados de foco com cores purple
-- **Snackbars**: Gradientes específicos por tipo de notificação
-- **Spinners**: Loading indicators com stroke purple
-
-## API Endpoints (JSON Server)
-```
-GET    /items          # Listar todos os itens
-GET    /items/:id      # Buscar item por ID
-POST   /items          # Criar novo item
-PUT    /items/:id      # Atualizar item
-DELETE /items/:id      # Excluir item
-
-# Filtros suportados:
-GET /items?q=search&_sort=field&_order=asc/desc&_page=1&_limit=10
-```
-
-## Estrutura de Dados
+## API e Dados
+- Endpoints REST simulados via JSON Server:
+  - GET    /items
+  - GET    /items/:id
+  - POST   /items
+  - PUT    /items/:id
+  - DELETE /items/:id
+- Filtros: ?q=search&_sort=field&_order=desc&_page=1&_limit=10
+- Estrutura do item:
 ```typescript
 interface Item {
   id: number;
-  title: string;
-  description: string;
-  imageUrl: string;
+  title: string;        // Obrigatório, min 3 chars
+  description: string;  // Obrigatório, min 10 chars
+  imageUrl: string;     // Obrigatório, URL válida
   createdAt?: Date;
   updatedAt?: Date;
 }
 ```
+- db.json: dados de exemplo ordenados por updatedAt
 
-## Serviço de Imagens
-- **Placeholder Service**: https://placehold.co/
-- **Formato Básico**: `https://placehold.co/WIDTHxHEIGHT?text=TEXTO`
-- **Formato Colorido**: `https://placehold.co/WIDTHxHEIGHT/COR_FUNDO/COR_TEXTO?text=TEXTO`
-- **URLs de exemplo**: 
-  - Simples: https://placehold.co/300x200?text=Item+1
-  - Colorido: https://placehold.co/300x200/4A90E2/FFFFFF?text=Smartphone
-- **Fallback para erros**: https://placehold.co/400x300?text=Imagem+não+encontrada
-- **Formatos suportados**: JPG, PNG, GIF, WebP
-- **Cores**: Hexadecimal sem # (ex: 4A90E2 para azul)
-- **Aspect Ratio recomendado**: 4:3 para cards, 3:2 para detalhes
+## Convenções e Padrões
+- Standalone Components e Signals
+- Tipagem TypeScript strict
+- Separação de responsabilidades (componentes, serviços, modelos)
+- JSDoc em métodos públicos
+- IDs únicos para automação e acessibilidade
+- Testes focados em operações essenciais e casos reais
 
-## Componentes Genéricos Criados
-1. **SpinnerComponent**: Loading indicator customizável
-2. **ModalComponent**: Modal genérico com slots
-3. **ConfirmDialogComponent**: Diálogo de confirmação
-
-## Validações Implementadas
-- Título: obrigatório, mínimo 3 caracteres
-- Descrição: obrigatória, mínimo 10 caracteres
-- URL da Imagem: obrigatória, formato URL válido
-- Recorte de imagem: aspect ratio 4:3, dimensões mínimas
-
-## Estados de Carregamento
-- Loading global durante operações
-- Loading por item durante exclusão
-- Spinners customizados com mensagens
-- Desabilitar ações durante loading
-
-## Tratamento de Erros
-- Interceptação de erros HTTP
-- Notificações visuais para usuário
-- Fallback para imagens quebradas
-- Estados de erro com possibilidade de retry
-
-## Responsividade
-- Grid adaptativo para cards
-- Formulários responsivos
-- Menu mobile-friendly
-- Imagens otimizadas para diferentes telas
-
-## Documentação
-- JSDoc completo em todos os arquivos
-- Exemplos de uso nos comentários
-- Documentação técnica com Compodoc
-- README detalhado com instruções
-
-## Testes
-- Estrutura preparada para testes unitários
-- Componentes testáveis com dependency injection
-- Mocks para services
-
-## Performance
-- Lazy loading de componentes
-- OnPush change detection strategy onde aplicável
-- Debounce em filtros de busca
-- Paginação para grandes datasets
-
-## Acessibilidade
-- Labels adequados para formulários
-- ARIA attributes nos componentes
-- Navegação por teclado
-- Alto contraste no tema
-
-## Dados de Exemplo
-
-O arquivo `db.json` contém dados de exemplo atualizados:
-
-```json
-{
-  "items": [
-    {
-      "id": 1,
-      "title": "Smartphone Premium",
-      "description": "Smartphone de última geração com câmera profissional, tela AMOLED de 6.7 polegadas e bateria de longa duração. Perfeito para fotografia e produtividade.",
-      "imageUrl": "https://placehold.co/300x200/4A90E2/FFFFFF?text=Smartphone",
-      "createdAt": "2024-01-15T10:30:00.000Z",
-      "updatedAt": "2024-01-15T10:30:00.000Z"
-    },
-    {
-      "id": 2,
-      "title": "Notebook Gamer",
-      "description": "Notebook para jogos com placa de vídeo dedicada, processador Intel i7, 16GB RAM e SSD 512GB. Ideal para games e trabalho pesado.",
-      "imageUrl": "https://placehold.co/300x200/50C878/FFFFFF?text=Notebook",
-      "createdAt": "2024-01-16T14:20:00.000Z",
-      "updatedAt": "2024-01-16T14:20:00.000Z"
-    },
-    {
-      "id": 3,
-      "title": "Fones Bluetooth",
-      "description": "Fones de ouvido sem fio com cancelamento de ruído ativo, até 30 horas de bateria e qualidade de som premium para música e chamadas.",
-      "imageUrl": "https://placehold.co/300x200/9B59B6/FFFFFF?text=Fones",
-      "createdAt": "2024-01-17T09:15:00.000Z",
-      "updatedAt": "2024-01-17T09:15:00.000Z"
-    }
-  ]
-}
-```
-
-## Sistema de Tema Claro/Escuro v1.2.0
-- ✅ **Tema Dinâmico**: Implementado sistema completo de alternância entre tema claro e escuro
-- ✅ **Serviço de Tema**: ThemeService com gerenciamento de estado usando BehaviorSubject
-- ✅ **Persistência**: Tema salvo no localStorage com detecção automática da preferência do sistema
-- ✅ **Botão Toggle**: Ícone dinâmico no toolbar (light_mode/dark_mode) com tooltip explicativo
-- ✅ **Variáveis CSS**: Paleta completa de cores para ambos os temas usando CSS custom properties
-- ✅ **Transições Suaves**: Animações de 0.3s ease para mudanças de cores
-- ✅ **Cobertura Completa**: Todos os componentes adaptados (cards, modais, formulários, etc.)
-
-### Funcionalidades do Sistema de Tema
-
-#### ThemeService
-- **Detecção Automática**: Verifica preferência do sistema na primeira visita
-- **Persistência**: Salva escolha no localStorage para próximas sessões
-- **Estado Reativo**: Observable para componentes reagirem a mudanças
-- **Métodos Públicos**: `toggleTheme()`, `setTheme()`, `getCurrentTheme()`
-
-#### Variáveis CSS do Tema Claro
-- **Cores Primárias**: `#546e7a` (azul-acinzentado neutro)
-- **Fundo**: `#fafafa` (cinza muito claro)
-- **Superfície**: `#ffffff` (branco)
-- **Texto**: `#212121` (quase preto) / `#757575` (cinza médio)
-- **Bordas**: `#e0e0e0` (cinza claro)
-
-#### Variáveis CSS do Tema Escuro
-- **Cores Primárias**: `#78909c` (azul-acinzentado mais claro)
-- **Fundo**: `#121212` (preto Material Design)
-- **Superfície**: `#1e1e1e` (cinza escuro)
-- **Texto**: `#ffffff` (branco) / `#b0b0b0` (cinza claro)
-- **Bordas**: `#333333` (cinza médio escuro)
-
-#### Integração com Componentes
-- **ItemListComponent**: Botão toggle integrado no toolbar
-- **Aplicação Global**: Classes aplicadas no body (`light-theme`/`dark-theme`)
-- **Todas as Variáveis**: Utilizadas em cards, modais, formulários e botões
-
-## Ordenação Padrão Atualizada v1.2.1
-- ✅ **Ordenação por Data**: Lista agora carrega ordenada por `createdAt` em ordem decrescente
-- ✅ **Itens Mais Recentes**: Novos itens aparecem no topo da lista automaticamente
-- ✅ **Melhoria UX**: Usuários veem primeiro os itens mais recentes criados
-- ✅ **Compatibilidade**: Mantém opções de ordenação manual pelos filtros
-
-### Detalhes Técnicos da Ordenação
-- **Campo Padrão**: `sortBy: ['createdAt']` (era `title`)
-- **Direção Padrão**: `sortDirection: ['desc']` (era `asc`)
-- **Funcionalidade**: Itens ordenados do mais recente ao mais antigo
-- **Flexibilidade**: Usuário pode alterar ordenação via select
-
-## Estilização Neutra Refinada v1.2.2
-- ✅ **Paleta Neutra**: Cores elegantes em tons de azul-acinzentado
-- ✅ **Bordas Visíveis**: Restauradas bordas em inputs e elementos de formulário
-- ✅ **Estados Interativos**: Hover e focus states melhorados
-- ✅ **Modais Destacados**: Inputs nos modais com bordas vermelhas para destaque
-- ✅ **Seletores Temáticos**: Itens selecionados em mat-select com fundo colorido e texto branco
-
-### Melhorias Visuais Aplicadas
-- **Form Fields**: Bordas de 1px com states de foco de 2px
-- **Inputs Básicos**: Estilização consistente para input, textarea, select
-- **Mat-Select**: Opções selecionadas com background primário e texto branco
-- **Modais**: Bordas vermelhas nos inputs para melhor visibilidade
-- **Transições**: Animações suaves de 0.3s em todos os elementos
-
-## Estrutura de Serviços Atualizada
-```
-src/app/services/
-├── item.service.ts           # CRUD operations
-├── notification.service.ts   # Notificações
-└── theme.service.ts         # Gerenciamento de tema (NOVO)
-```
-
-## Ordenação por updatedAt v1.2.3
-- ✅ **Ordenação por Última Atualização**: Lista agora carrega ordenada por `updatedAt` em ordem decrescente
-- ✅ **Itens Recém-Editados no Topo**: Itens editados aparecem automaticamente no topo da lista
-- ✅ **Ordenação Local**: Implementada ordenação local no frontend para melhor performance
-- ✅ **Tratamento de Datas**: Comparação correta de timestamps para ordenação precisa
-- ✅ **Fallback Inteligente**: Todos os métodos agora usam `updatedAt` desc como padrão
-
-### Detalhes Técnicos da Nova Ordenação
-- **Campo Padrão**: `sortBy: ['updatedAt']` (era `createdAt`)
-- **Direção**: `sortDirection: ['desc']` (mais recente primeiro)
-- **Local Sorting**: Implementado no ItemService para melhor controle
-- **Tratamento de Datas**: Conversão para timestamps para comparação correta
-- **Performance**: Evita dependência da ordenação do json-server
-
-## Paginação Fixa e Suavizada v1.2.4
-- ✅ **Paginação Fixa**: Componente MatPaginator fixo no final da tela
-- ✅ **Layout Flexível**: Container principal com flexbox para melhor estrutura
-- ✅ **Espaçamento Adequado**: Conteúdo com padding-bottom para evitar sobreposição
-- ✅ **Backdrop Blur**: Efeito de desfoque no fundo da paginação
-- ✅ **Transição Suavizada**: Delay de 1 segundo + fade effects na mudança de página
-- ✅ **Tradução Completa**: Paginação em português brasileiro via PaginatorIntlService
-
-### Funcionalidades da Paginação Fixa
-- **Position Fixed**: Sempre visível no bottom da tela
-- **Z-index Alto**: Fica sempre por cima do conteúdo (z-index: 1000)
-- **Espaçamento Responsivo**: 80px no desktop, 90px no mobile
-- **Sombra Suave**: Box-shadow para destacar do conteúdo
-- **Responsiva**: Funciona em todas as resoluções
-
-### Suavização de Transições
-- **Delay Mínimo**: 1 segundo na paginação para evitar mudanças bruscas
-- **Fade Effect**: Opacidade reduzida (0.3) durante carregamento
-- **Estado Visual**: Signal `isPaginationFading` para controle preciso
-- **Timing Otimizado**: 150ms de fade-out + 1s de loading + fade-in
-
-### Tradução em Português
-- **PaginatorIntlService**: Service personalizado para tradução
-- **Labels Traduzidas**: "Itens por página", "Próxima página", etc.
-- **Range Format**: "1 – 10 de 50" em português
-- **Configuração Global**: Provider no app.config.ts
-
-## Testes Unitários Completos v1.2.5
-- ✅ **88 Testes Implementados**: Cobertura completa dos principais componentes
-- ✅ **7 Arquivos de Teste**: Services e Components testados individualmente
-- ✅ **Padrões Jasmine/Karma**: Seguindo melhores práticas do Angular
-- ✅ **Mocks Completos**: HttpClientTestingModule e spies para isolamento
-- ✅ **Documentação de Testes**: TESTS.md com instruções completas
-
-### Estrutura de Testes Implementada
-```
-src/app/
-├── services/
-│   ├── item.service.spec.ts (15 testes)
-│   ├── paginator-intl.service.spec.ts (10 testes)
-│   ├── theme.service.spec.ts (11 testes)
-│   └── notification.service.spec.ts (6 testes)
-├── components/
-│   ├── item-list/item-list.component.spec.ts (23 testes)
-│   └── item-card/item-card.component.spec.ts (21 testes)
-└── app.spec.ts (2 testes)
-```
-
-### Cobertura de Testes por Componente
-
-#### ItemService (15 testes)
-- CRUD operations completas
-- Filtros e paginação
-- Ordenação por datas
-- Tratamento de erros HTTP
-- Utilitários (setSelectedItem, etc.)
-
-#### ItemListComponent (23 testes)
-- Inicialização e carregamento
-- Filtros de busca com debounce
-- Paginação suavizada
-- Ações CRUD via diálogos
-- Estados de loading e error
-- Limpeza de filtros
-- Toggle de tema
-
-#### ItemCardComponent (21 testes)
-- Exibição de informações
-- Ações (view, edit, delete)
-- Estados de loading
-- Formatação de datas
-- Tratamento de erros de imagem
-- Controle de visibilidade
-
-#### PaginatorIntlService (10 testes)
-- Tradução de labels
-- Formatação de ranges
-- Casos especiais (sem itens)
-- Emissão de mudanças
-
-#### ThemeService (11 testes)
-- Alternância de temas
-- Persistência no localStorage
-- Aplicação de classes CSS
-- Detecção de preferência do sistema
-
-#### NotificationService (6 testes)
-- Notificações por tipo
-- Duração personalizada
-- Configuração do MatSnackBar
-
-### Ferramentas de Teste
-- **test-runner.js**: Script para validar estrutura
-- **TESTS.md**: Documentação completa
-- **Jasmine + Karma**: Framework de testes padrão Angular
-- **HttpClientTestingModule**: Para testes de API
-- **Spies e Mocks**: Isolamento de dependências
-
-### Comandos de Teste
-```bash
-# Verificar estrutura de testes
-node test-runner.js
-
-# Executar testes (quando browser disponível)
-npm test
-
-# Executar com coverage
-npm test -- --code-coverage
-
-# Build para verificar compilação
-npm run build
-```
-
-## Estrutura do Projeto Atualizada
-```
-src/app/
-├── components/          # Componentes principais da aplicação
-│   ├── item-list/      # Lista de itens com filtros e paginação
-│   ├── item-form/      # Formulário de criação/edição
-│   ├── item-card/      # Card para exibir item
-│   └── item-dialog/    # Modal para visualizar detalhes
-├── services/           # Services para comunicação com API
-│   ├── item.service.ts           # CRUD operations
-│   ├── notification.service.ts   # Notificações
-│   ├── theme.service.ts         # Gerenciamento de tema
-│   └── paginator-intl.service.ts # Tradução da paginação
-├── models/             # Interfaces e modelos TypeScript
-│   └── item.model.ts
-├── shared/             # Componentes reutilizáveis
-│   └── components/
-│       ├── spinner/    # Loading spinner
-│       ├── modal/      # Modal genérico
-│       └── confirm-dialog/ # Diálogo de confirmação
-├── guards/            # Guards de rota
-└── interceptors/      # Interceptors HTTP
-```
-
-## Funcionalidades Implementadas Completas
-- ✅ Listagem de itens com Material Design
-- ✅ Criação de itens com validação reativa
-- ✅ Edição de itens existentes (modal e página)
-- ✅ Exclusão com confirmação via dialog
-- ✅ Upload e recorte de imagens com ngx-image-cropper
-- ✅ Filtros de busca por título/descrição com debounce
-- ✅ Ordenação por updatedAt (mais recente primeiro)
-- ✅ Paginação fixa no rodapé com transições suaves
-- ✅ Sistema de tema claro/escuro com persistência
-- ✅ Tradução completa da paginação para português
-- ✅ Feedback visual com Material Snackbar
-- ✅ Documentação JSDoc completa
-- ✅ 88 testes unitários com cobertura completa
-- ✅ Estados de carregamento com spinners personalizados
-- ✅ Tratamento de erros robusto
-- ✅ Design responsivo com cards arredondados
-- ✅ IDs únicos para automação de testes
-- ✅ Separação de templates e estilos em arquivos externos
-
-## Scripts NPM Atualizados
+## Scripts e Comandos Úteis
 ```bash
 # Instalar dependências
 npm install
 
-# Iniciar aplicação Angular
-npm start
-
-# Iniciar JSON Server
-npm run json-server
-
-# Comando de desenvolvimento completo (Angular + JSON Server)
+# Rodar Angular e JSON Server juntos
 npm run start:dev
 
-# Gerar documentação Compodoc
-npm run doc:build
-npm run doc:serve
-npm run doc:buildandserve
+# Rodar apenas Angular
+npm start
 
-# Gerar documentação JSDoc
-npm run jsdoc
+# Rodar apenas API
+npm run json-server
 
-# Build produção
-npm run build
-
-# Executar testes unitários
+# Rodar testes unitários
 npm test
 
-# Verificar estrutura de testes
-node test-runner.js
+# Gerar cobertura de testes
+npm run test:coverage:chromium
+
+# Build de produção
+npm run build
+
+# Gerar documentação
+npm run doc:build
+npm run doc:serve
+npm run jsdoc
 ```
 
-## Recursos para IA - Arquivos Importantes
-- **llms.txt**: Este arquivo com documentação completa
-- **TESTS.md**: Documentação específica dos testes unitários
-- **README.md**: Instruções de instalação e uso
-- **test-runner.js**: Script para validação da estrutura de testes
-- **package.json**: Dependências e scripts do projeto
-- **angular.json**: Configuração do projeto Angular
-- **tsconfig.json**: Configuração TypeScript
-- **db.json**: Dados de exemplo para o JSON Server
+## Temas e Personalização
+- Tema claro/escuro alternável (localStorage, detecção automática)
+- Variáveis CSS customizadas em `src/styles.scss`
+- Transições suaves (0.3s)
+- Paleta neutra azul-acinzentada
 
-## Convenções de Código
-- **Standalone Components**: Todos os componentes são independentes
-- **Signals**: Para gerenciamento de estado reativo
-- **JSDoc**: Documentação completa em todos os arquivos
-- **IDs Únicos**: Para facilitar automação e acessibilidade
-- **Separação de Responsabilidades**: Templates, estilos e lógica separados
-- **Testes Unitários**: Cobertura abrangente com Jasmine/Karma
-- **TypeScript Strict**: Tipagem rigorosa em todo o projeto
+## Performance e UX
+- Lazy loading de componentes
+- Debounce em buscas
+- Paginação para grandes listas
+- Feedback visual e loading global/local
 
-## Dados de Exemplo Atualizados
-O arquivo `db.json` contém dados com ordenação por `updatedAt`:
-- Item mais recente: Câmera DSLR (2025-01-08)
-- Ordenação decrescente por data de atualização
-- Campos `createdAt` e `updatedAt` em todos os itens
+## Acessibilidade
+- Labels e ARIA nos formulários
+- Navegação por teclado
+- Alto contraste nos temas
 
-## Próximos Passos Sugeridos
-- Implementar autenticação e autorização
-- Adicionar testes E2E com Cypress
-- Implementar PWA capabilities
-- Cache inteligente de dados
-- Animações avançadas entre temas
-- Suporte a mais variações de tema
-- Filtros avançados (data, categoria, etc.)
-- Export/Import de dados
-- Bulk operations (edição/exclusão em massa)
-- Versionamento de itens
+## Documentação e Recursos
+- README.md: instruções gerais
+- TESTS.md: guia de testes
+- AGENT.md: guia para IA/assistentes
+- Compodoc: documentação técnica (npm run doc:serve)
+- JSDoc: documentação de código
+
+## Próximos Passos e Roadmap
+- Autenticação e autorização
+- Testes E2E com Cypress
+- PWA e cache inteligente
+- Filtros avançados e export/import de dados
+- Internacionalização (i18n)
+
+---
+Este arquivo serve como referência rápida e confiável para LLMs, desenvolvedores e assistentes que desejam entender, testar, manter ou expandir o projeto TagMe Desafio.
