@@ -57,6 +57,7 @@ npm start            # Angular na porta 4200
 
 ## Testes
 
+
 ### Testes Unitários
 ```bash
 # Executar todos os testes (abre navegador padrão do sistema)
@@ -72,6 +73,10 @@ npm test -- --browsers=ChromeHeadless --code-coverage
 npm run test:coverage:chromium
 ```
 > Por padrão, o comando `npm test` utiliza o navegador padrão do sistema (Chrome, Chromium, Edge, Firefox, etc). Para personalizar, edite o arquivo `karma.conf.js` ou use a flag `--browsers=NomeDoBrowser`.
+
+#### Execução real dos testes (prova visual)
+
+![Execução dos testes unitários bem-sucedida](images/test-success.png)
 
 ### Estrutura dos Testes
 - src/app/services/item.service.spec.ts         # Testes CRUD do serviço
