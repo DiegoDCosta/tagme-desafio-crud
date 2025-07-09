@@ -3,18 +3,19 @@
  * @author AI Assistant
  */
 
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, signal, computed, Inject, Optional, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { Component, computed, EventEmitter, Inject, inject, Input, OnDestroy, OnInit, Optional, Output, signal } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
+import { Router } from '@angular/router';
+import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
 import { Subject, takeUntil } from 'rxjs';
-import { Item, CreateItemDto, UpdateItemDto } from '../../models/item.model';
+import { CreateItemDto, Item, UpdateItemDto } from '../../models/item.model';
 import { ItemService } from '../../services/item.service';
 import { NotificationService } from '../../services/notification.service';
 
@@ -57,7 +58,8 @@ export class ItemFormComponent implements OnInit, OnDestroy {
   private readonly fb = inject(FormBuilder);
   private readonly itemService = inject(ItemService);
   private readonly notificationService = inject(NotificationService);
-  
+  private readonly router = inject(Router);
+
   /**
    * Item para edição (opcional)
    * @type {Item | null}
@@ -245,7 +247,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
     console.log('onImageCropped chamado:', event);
     console.log('event.base64 existe?', !!event.base64);
     console.log('event.blob existe?', !!event.blob);
-    
+
     if (event.base64) {
       // Se já tem base64, usa direto
       this.croppedImageUrl.set(event.base64);
@@ -310,14 +312,14 @@ export class ItemFormComponent implements OnInit, OnDestroy {
     if (this.itemForm.valid) {
       const formData = this.itemForm.value;
       this.isLoading = true;
-      
+
       if (this.isEditMode()) {
         const updateData: UpdateItemDto = {
           title: formData.title,
           description: formData.description,
           imageUrl: formData.imageUrl
         };
-        
+
         // Se usado como diálogo, chama o service diretamente
         if (this.dialogRef && this.item) {
           this.itemService.updateItem(this.item.id, updateData)
@@ -326,6 +328,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
               next: () => {
                 this.notificationService.success('Item atualizado com sucesso');
                 this.dialogRef.close('saved');
+                this.redirectToList();
               },
               error: () => {
                 this.notificationService.error('Erro ao atualizar item');
@@ -341,7 +344,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
           description: formData.description,
           imageUrl: formData.imageUrl
         };
-        
+
         // Se usado como diálogo, chama o service diretamente
         if (this.dialogRef) {
           this.itemService.createItem(createData)
@@ -350,6 +353,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
               next: () => {
                 this.notificationService.success('Item criado com sucesso');
                 this.dialogRef.close('saved');
+                this.redirectToList();
               },
               error: () => {
                 this.notificationService.error('Erro ao criar item');
@@ -381,19 +385,27 @@ export class ItemFormComponent implements OnInit, OnDestroy {
    */
   getFormErrors(): string {
     const errors: string[] = [];
-    
+
     if (this.titleControl.errors) {
       errors.push(`Título: ${JSON.stringify(this.titleControl.errors)}`);
     }
-    
+
     if (this.descriptionControl.errors) {
       errors.push(`Descrição: ${JSON.stringify(this.descriptionControl.errors)}`);
     }
-    
+
     if (this.imageUrlControl.errors) {
       errors.push(`Imagem: ${JSON.stringify(this.imageUrlControl.errors)}`);
     }
-    
+
     return errors.join(', ');
+  }
+
+  // Após salvar/criar item, redireciona para lista
+  private redirectToList() {
+    // Aguarda 2 segundos para mostrar a mensagem de sucesso antes de redirecionar
+    setTimeout(() => {
+      this.router.navigate(['/items']);
+    }, 2000);
   }
 }
